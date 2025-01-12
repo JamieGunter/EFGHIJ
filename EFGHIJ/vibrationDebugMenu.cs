@@ -21,7 +21,6 @@ namespace EFGHIJ
             InitializeComponent();
             controllerInterface = new ControllerInterface();
             controllerInterface.InitializeController();
-            
         }
 
         private void OffButton_Click(object sender, EventArgs e)
