@@ -95,13 +95,13 @@ namespace EFGHIJ
                                 clickButton("getOriginalStimuliButton", 2000);
                                 break;
                             case 9000: // Right direction (V2 is higher button)
-                                clickButton("V2IsNotLowerButton", 5000);
+                                clickButton("V2IsNotLowerButton", 6000);
                                 break;
                             case 18000: // Down direction (Get new stimulus again)
                                 clickButton("getNewStimuliButton", 2000);
                                 break;
                             case 27000: // Left direction (V2 is lower button)
-                                clickButton("V2IsLowerButton", 5000);
+                                clickButton("V2IsLowerButton", 6000);
                                 break;
                             default: // Neutral/No direction
                                 // Do nothing

@@ -26,6 +26,7 @@ namespace EFGHIJ
         }
         public async void createNextTrial() // Create the next trial
         {
+            disableAllButtons(); // Disable all buttons so user cannot input multiple commands
             V1 = jndInterface.getV1Value(); // Get V1 value
             V2 = jndInterface.getV2Value(); // Get V2 value
             trialNumber = jndInterface.getTrialNumber(); // Get current trial number
@@ -41,25 +42,31 @@ namespace EFGHIJ
             await Task.Delay(2000); // Allow vibration for 2 seconds
             controllerInterface.SetVibration(0, 0); // Stop vibration
             getNewStimuliButton.BackColor = Color.LightGray; // Change back to white to signify no longer showing stimuli
+            enableAllButtons(); // Enable all buttons so user can input again
         }
         private async void getOriginalStimuliButton_Click(object sender, EventArgs e)
         {
+            disableAllButtons(); // Disable all buttons so user cannot input multiple commands
             controllerInterface.SetVibration(V1, V1); // Vibrate at V1 value
             getOriginalStimuliButton.BackColor = Color.Green; // Change to green to signify showing stimuli
             await Task.Delay(2000); // Allow vibration for 2 seconds
             controllerInterface.SetVibration(0, 0); // Stop vibration
             getOriginalStimuliButton.BackColor = Color.LightGray; // Change back to white to signify no longer showing stimuli
+            enableAllButtons(); // Enable all buttons so user can input again
         }
         private async void getNewStimuliButton_Click(object sender, EventArgs e)
         {
+            disableAllButtons(); // Disable all buttons so user cannot input multiple commands
             controllerInterface.SetVibration(V2, V2); // Vibrate at V2 value
             getNewStimuliButton.BackColor = Color.Green; // Change to green to signify showing stimuli
             await Task.Delay(2000); // Allow vibration for 2 seconds
             controllerInterface.SetVibration(0, 0); // Stop vibration
             getNewStimuliButton.BackColor = Color.LightGray; // Change back to white to signify no longer showing stimuli
+            enableAllButtons(); // Enable all buttons so user can input again
         }
         private void V2IsLowerButton_Click(object sender, EventArgs e)
         {
+            disableAllButtons(); // Disable all buttons so user cannot input multiple commands (Just in case of noise/multiple successive inputs)
             // Check if user is correct and if reversal occurs (User input is that V2 is lower than V1), then get new V2 value
             V2 = jndInterface.checkReversalAndCalculateVDiff(true);
             // Update revesal number to check if reversal has occured
@@ -75,6 +82,7 @@ namespace EFGHIJ
         }
         private void V2IsNotLowerButton_Click(object sender, EventArgs e)
         {
+            disableAllButtons(); // Disable all buttons so user cannot input multiple commands (Just in case of noise/multiple successive inputs)
             // Check if user is correct and if reversal occurs (User input is that V2 is higher than V1), then get new V2 value
             V2 = jndInterface.checkReversalAndCalculateVDiff(false);
             // Update revesal number to check if reversal has occured
@@ -88,12 +96,31 @@ namespace EFGHIJ
             // Create next trial if game has not concluded
             createNextTrial();
         }
-
         private async void beginTaskButton_Click(object sender, EventArgs e)
         {
             taskInitiatorGridBox.Visible = false;
             await Task.Delay(2000); // Wait 2 Seconds
             createNextTrial();
+        }
+        private void disableAllButtons() // Disable all buttons
+        {
+            foreach (Control interactableElement in this.Controls)
+            {
+                if (interactableElement is Button)
+                {
+                    interactableElement.Enabled = false;
+                }
+            }
+        }
+        private void enableAllButtons() // Enable all buttons
+        {
+            foreach (Control interactableElement in this.Controls)
+            {
+                if (interactableElement is Button)
+                {
+                    interactableElement.Enabled = true;
+                }
+            }
         }
     }
 }
