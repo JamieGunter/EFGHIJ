@@ -63,6 +63,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="TaskConclusionForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TaskConclusionForm.Designer.cs">
+      <DependentUpon>TaskConclusionForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="JNDInterface.cs" />
     <Compile Include="ControllerInterface.cs" />
     <Compile Include="vibrationDebugMenu.cs">

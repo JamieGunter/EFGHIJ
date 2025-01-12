@@ -22,29 +22,40 @@ namespace EFGHIJ
         public VanillaForm()
         {
             InitializeComponent();
-            createNextTrial(); // Create the first trial
         }
-        public void createNextTrial() // Create the next trial
+        public async void createNextTrial() // Create the next trial
         {
             V1 = jndInterface.getV1Value(); // Get V1 value
             V2 = jndInterface.getV2Value(); // Get V2 value
             trialNumber = jndInterface.getTrialNumber(); // Get current trial number
             trialNumberLabel.Text = trialNumber.ToString(); // Update trial number label
-            controllerInterface.SetVibration(V2, V2); // Vibrate at V2 value
-            Thread.Sleep(2000); // Allow vibration for 2 seconds
+            controllerInterface.SetVibration(V1, V1); // Vibrate at V1 value
+            getOriginalStimuliButton.BackColor = Color.Green; // Change to green to signify showing stimuli
+            await Task.Delay(2000); // Allow vibration for 2 seconds
             controllerInterface.SetVibration(0, 0); // Stop vibration
+            getOriginalStimuliButton.BackColor = Color.LightGray; // Change back to white to signify no longer showing stimuli
+            await Task.Delay(1000); // Allow vibration for 1 second
+            controllerInterface.SetVibration(V2, V2); // Vibrate at V2 value
+            getNewStimuliButton.BackColor = Color.Green; // Change to green to signify showing stimuli
+            await Task.Delay(2000); // Allow vibration for 2 seconds
+            controllerInterface.SetVibration(0, 0); // Stop vibration
+            getNewStimuliButton.BackColor = Color.LightGray; // Change back to white to signify no longer showing stimuli
         }
-        private void getOriginalStimuliButton_Click(object sender, EventArgs e)
+        private async void getOriginalStimuliButton_Click(object sender, EventArgs e)
         {
             controllerInterface.SetVibration(V1, V1); // Vibrate at V1 value
-            Thread.Sleep(2000); // Allow vibration for 2 seconds
+            getOriginalStimuliButton.BackColor = Color.Green; // Change to green to signify showing stimuli
+            await Task.Delay(2000); // Allow vibration for 2 seconds
             controllerInterface.SetVibration(0, 0); // Stop vibration
+            getOriginalStimuliButton.BackColor = Color.LightGray; // Change back to white to signify no longer showing stimuli
         }
-        private void getNewStimuliButton_Click(object sender, EventArgs e)
+        private async void getNewStimuliButton_Click(object sender, EventArgs e)
         {
             controllerInterface.SetVibration(V2, V2); // Vibrate at V2 value
-            Thread.Sleep(2000); // Allow vibration for 2 seconds
+            getNewStimuliButton.BackColor = Color.Green; // Change to green to signify showing stimuli
+            await Task.Delay(2000); // Allow vibration for 2 seconds
             controllerInterface.SetVibration(0, 0); // Stop vibration
+            getNewStimuliButton.BackColor = Color.LightGray; // Change back to white to signify no longer showing stimuli
         }
         private void V2IsLowerButton_Click(object sender, EventArgs e)
         {
@@ -55,7 +66,8 @@ namespace EFGHIJ
             // Check if 6 reversals have occured, and if so, conclude this game (In gamified, include pin/visual logic by checking if a reversal has just occured)
             if (reversalNumber == 6)
             {
-                // Conclude game - TBI
+                TaskConclusionForm taskConclusionForm = new TaskConclusionForm(this);
+                taskConclusionForm.Show();
             }
             // Create next trial if game has not concluded
             createNextTrial();
@@ -69,9 +81,17 @@ namespace EFGHIJ
             // Check if 6 reversals have occured, and if so, conclude this game (In gamified, include pin/visual logic by checking if a reversal has just occured)
             if (reversalNumber == 6)
             {
-                // Conclude game - TBI
+                TaskConclusionForm taskConclusionForm = new TaskConclusionForm(this);
+                taskConclusionForm.Show();
             }
             // Create next trial if game has not concluded
+            createNextTrial();
+        }
+
+        private async void beginTaskButton_Click(object sender, EventArgs e)
+        {
+            taskInitiatorGridBox.Visible = false;
+            await Task.Delay(2000); // Wait 2 Seconds
             createNextTrial();
         }
     }

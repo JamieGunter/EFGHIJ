@@ -33,6 +33,10 @@
             this.V2IsLowerButton = new System.Windows.Forms.Button();
             this.V2IsNotLower = new System.Windows.Forms.Button();
             this.trialNumberLabel = new System.Windows.Forms.Label();
+            this.taskInitiatorGridBox = new System.Windows.Forms.GroupBox();
+            this.beginTaskButton = new System.Windows.Forms.Button();
+            this.instructionLabel = new System.Windows.Forms.Label();
+            this.taskInitiatorGridBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // getOriginalStimuliButton
@@ -86,11 +90,42 @@
             this.trialNumberLabel.Text = "1";
             this.trialNumberLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // taskInitiatorGridBox
+            // 
+            this.taskInitiatorGridBox.Controls.Add(this.instructionLabel);
+            this.taskInitiatorGridBox.Controls.Add(this.beginTaskButton);
+            this.taskInitiatorGridBox.Location = new System.Drawing.Point(-1, -3);
+            this.taskInitiatorGridBox.Name = "taskInitiatorGridBox";
+            this.taskInitiatorGridBox.Size = new System.Drawing.Size(802, 453);
+            this.taskInitiatorGridBox.TabIndex = 5;
+            this.taskInitiatorGridBox.TabStop = false;
+            // 
+            // beginTaskButton
+            // 
+            this.beginTaskButton.Location = new System.Drawing.Point(289, 296);
+            this.beginTaskButton.Name = "beginTaskButton";
+            this.beginTaskButton.Size = new System.Drawing.Size(212, 67);
+            this.beginTaskButton.TabIndex = 0;
+            this.beginTaskButton.Text = "Begin";
+            this.beginTaskButton.UseVisualStyleBackColor = true;
+            this.beginTaskButton.Click += new System.EventHandler(this.beginTaskButton_Click);
+            // 
+            // instructionLabel
+            // 
+            this.instructionLabel.AutoSize = true;
+            this.instructionLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.instructionLabel.Location = new System.Drawing.Point(305, 156);
+            this.instructionLabel.Name = "instructionLabel";
+            this.instructionLabel.Size = new System.Drawing.Size(176, 20);
+            this.instructionLabel.TabIndex = 1;
+            this.instructionLabel.Text = "Insert Instructions Here";
+            // 
             // VanillaForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.taskInitiatorGridBox);
             this.Controls.Add(this.trialNumberLabel);
             this.Controls.Add(this.V2IsNotLower);
             this.Controls.Add(this.V2IsLowerButton);
@@ -98,6 +133,8 @@
             this.Controls.Add(this.getOriginalStimuliButton);
             this.Name = "VanillaForm";
             this.Text = "Vanilla Interface";
+            this.taskInitiatorGridBox.ResumeLayout(false);
+            this.taskInitiatorGridBox.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -110,5 +147,8 @@
         private System.Windows.Forms.Button V2IsLowerButton;
         private System.Windows.Forms.Button V2IsNotLower;
         private System.Windows.Forms.Label trialNumberLabel;
+        private System.Windows.Forms.GroupBox taskInitiatorGridBox;
+        private System.Windows.Forms.Label instructionLabel;
+        private System.Windows.Forms.Button beginTaskButton;
     }
 }
