@@ -31,7 +31,7 @@
             this.getOriginalStimuliButton = new System.Windows.Forms.Button();
             this.getNewStimuliButton = new System.Windows.Forms.Button();
             this.V2IsLowerButton = new System.Windows.Forms.Button();
-            this.V2IsNotLower = new System.Windows.Forms.Button();
+            this.V2IsNotLowerButton = new System.Windows.Forms.Button();
             this.trialNumberLabel = new System.Windows.Forms.Label();
             this.taskInitiatorGridBox = new System.Windows.Forms.GroupBox();
             this.beginTaskButton = new System.Windows.Forms.Button();
@@ -69,15 +69,15 @@
             this.V2IsLowerButton.UseVisualStyleBackColor = true;
             this.V2IsLowerButton.Click += new System.EventHandler(this.V2IsLowerButton_Click);
             // 
-            // V2IsNotLower
+            // V2IsNotLowerButton
             // 
-            this.V2IsNotLower.Location = new System.Drawing.Point(407, 185);
-            this.V2IsNotLower.Name = "V2IsNotLower";
-            this.V2IsNotLower.Size = new System.Drawing.Size(149, 63);
-            this.V2IsNotLower.TabIndex = 3;
-            this.V2IsNotLower.Text = "New Stimuli Is Higher Intensity";
-            this.V2IsNotLower.UseVisualStyleBackColor = true;
-            this.V2IsNotLower.Click += new System.EventHandler(this.V2IsNotLower_Click);
+            this.V2IsNotLowerButton.Location = new System.Drawing.Point(407, 185);
+            this.V2IsNotLowerButton.Name = "V2IsNotLowerButton";
+            this.V2IsNotLowerButton.Size = new System.Drawing.Size(149, 63);
+            this.V2IsNotLowerButton.TabIndex = 3;
+            this.V2IsNotLowerButton.Text = "New Stimuli Is Higher Intensity";
+            this.V2IsNotLowerButton.UseVisualStyleBackColor = true;
+            this.V2IsNotLowerButton.Click += new System.EventHandler(this.V2IsNotLowerButton_Click);
             // 
             // trialNumberLabel
             // 
@@ -94,7 +94,7 @@
             // 
             this.taskInitiatorGridBox.Controls.Add(this.instructionLabel);
             this.taskInitiatorGridBox.Controls.Add(this.beginTaskButton);
-            this.taskInitiatorGridBox.Location = new System.Drawing.Point(-1, -3);
+            this.taskInitiatorGridBox.Location = new System.Drawing.Point(0, 0);
             this.taskInitiatorGridBox.Name = "taskInitiatorGridBox";
             this.taskInitiatorGridBox.Size = new System.Drawing.Size(802, 453);
             this.taskInitiatorGridBox.TabIndex = 5;
@@ -127,7 +127,7 @@
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.taskInitiatorGridBox);
             this.Controls.Add(this.trialNumberLabel);
-            this.Controls.Add(this.V2IsNotLower);
+            this.Controls.Add(this.V2IsNotLowerButton);
             this.Controls.Add(this.V2IsLowerButton);
             this.Controls.Add(this.getNewStimuliButton);
             this.Controls.Add(this.getOriginalStimuliButton);
@@ -145,7 +145,7 @@
         private System.Windows.Forms.Button getOriginalStimuliButton;
         private System.Windows.Forms.Button getNewStimuliButton;
         private System.Windows.Forms.Button V2IsLowerButton;
-        private System.Windows.Forms.Button V2IsNotLower;
+        private System.Windows.Forms.Button V2IsNotLowerButton;
         private System.Windows.Forms.Label trialNumberLabel;
         private System.Windows.Forms.GroupBox taskInitiatorGridBox;
         private System.Windows.Forms.Label instructionLabel;

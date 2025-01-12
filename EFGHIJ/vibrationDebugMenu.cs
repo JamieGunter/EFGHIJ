@@ -19,7 +19,7 @@ namespace EFGHIJ
         public vibrationDebugMenu()
         {
             InitializeComponent();
-            controllerInterface = new ControllerInterface();
+            controllerInterface = new ControllerInterface(this);
         }
 
         private void OffButton_Click(object sender, EventArgs e)

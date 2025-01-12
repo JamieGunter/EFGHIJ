@@ -13,7 +13,7 @@ namespace EFGHIJ
 {
     public partial class VanillaForm : Form
     {
-        private ControllerInterface controllerInterface = new ControllerInterface(); // Intialise controller interface
+        private ControllerInterface controllerInterface; // Intialise controller interface
         private JNDInterface jndInterface = new JNDInterface(); // Initialise JND interface
         private int reversalNumber; // Number of reversals, initialised to 0, max 6
         private int trialNumber; // Number of trials
@@ -22,6 +22,7 @@ namespace EFGHIJ
         public VanillaForm()
         {
             InitializeComponent();
+            controllerInterface = new ControllerInterface(this);
         }
         public async void createNextTrial() // Create the next trial
         {
@@ -72,7 +73,7 @@ namespace EFGHIJ
             // Create next trial if game has not concluded
             createNextTrial();
         }
-        private void V2IsNotLower_Click(object sender, EventArgs e)
+        private void V2IsNotLowerButton_Click(object sender, EventArgs e)
         {
             // Check if user is correct and if reversal occurs (User input is that V2 is higher than V1), then get new V2 value
             V2 = jndInterface.checkReversalAndCalculateVDiff(false);
