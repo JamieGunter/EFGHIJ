@@ -50,6 +50,7 @@
             this.vanillaButton.TabIndex = 1;
             this.vanillaButton.Text = "Vanilla User Interface";
             this.vanillaButton.UseVisualStyleBackColor = true;
+            this.vanillaButton.Click += new System.EventHandler(this.vanillaButton_Click_1);
             // 
             // userInterfaceSelectForm
             // 

@@ -83,6 +83,10 @@ namespace EFGHIJ
         { 
             return reversalNumber; 
         }
+        public int getTrialNumber() // Get trial number
+        {
+            return trialNumber;
+        }
         public int getV1Value() // Get V1 value (for reference to user)
         {
             return V1.Value;

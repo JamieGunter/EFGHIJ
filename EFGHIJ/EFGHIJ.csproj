@@ -91,6 +91,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="VanillaForm.resx">
+      <DependentUpon>VanillaForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="vibrationDebugMenu.resx">
       <DependentUpon>vibrationDebugMenu.cs</DependentUpon>
     </EmbeddedResource>

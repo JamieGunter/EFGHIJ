@@ -21,14 +21,14 @@ namespace EFGHIJ
         {
             GamifiedForm gamifiedForm = new GamifiedForm();
             gamifiedForm.Show();
-            this.Close();
+            this.Hide();
         }
 
-        private void vanillaButton_Click(object sender, EventArgs e)
+        private void vanillaButton_Click_1(object sender, EventArgs e)
         {
             VanillaForm vanillaForm = new VanillaForm();
             vanillaForm.Show();
-            this.Close();
+            this.Hide();
         }
     }
 }
