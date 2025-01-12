@@ -12,8 +12,12 @@ namespace EFGHIJ
     internal class ControllerInterface
     {
         private Controller controller;
+        public ControllerInterface()
+        {
+            InitializeController();
+        }
 
-        public void InitializeController()
+        private void InitializeController()
         {
             controller = new Controller(UserIndex.One);
             if (controller.IsConnected)

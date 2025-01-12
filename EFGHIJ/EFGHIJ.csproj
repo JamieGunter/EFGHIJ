@@ -63,6 +63,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="JNDInterface.cs" />
     <Compile Include="ControllerInterface.cs" />
     <Compile Include="vibrationDebugMenu.cs">
       <SubType>Form</SubType>
