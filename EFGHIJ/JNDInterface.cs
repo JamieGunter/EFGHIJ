@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OfficeOpenXml;
 
 namespace EFGHIJ
 {
@@ -14,45 +16,54 @@ namespace EFGHIJ
         private int V2; // Compared stimuli value or "V2"
         private double VDiff = 20.0; // Difference (as percentage) between V1 and V2, default 20% of maximum (65535)
         private double VDiffMutator = 0.5; // Mutator value for percentage difference, default 0.5% of maximum (65535)
-        private bool lastResponseWasCorrect = true; // Previous user input state tracker for reversal detection
+        private bool? lastResponseWasCorrect = null; // Previous user input state tracker for reversal detection (nullable for first run having no previous result)
+        private bool isVanilla; // Flag for if it is vanilla trial (saving purposes)
+        private string filePath; // Variable for the path to excel sheet(s)
+        private int contestantNumber; // Current contestant number (for speadsheet)
         private Random randomGen = new Random(); // Generate random number for V1 initialisation (and V2 sign)
 
-        public JNDInterface() // Constructor of JND Interface
+        public JNDInterface(bool iIsVanilla) // Constructor of JND Interface
         {
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial; // Set EPPlus license to non-commercial
+            isVanilla = iIsVanilla; // Set vanilla flag
             generateStimuliValues(); // Initialise V1 and generate V2 value
+            initialiseSaving(); // Initialise saving (and create a new contestent spreadsheet)
         }
         public int checkReversalAndCalculateVDiff(bool IsLowerUserInput)
         {
+            bool ReversalOccured = false; // Initialised to false, unless proven otherwise later
             // Check if the user is correct
             bool UserCorrect = ((V2 < V1) && IsLowerUserInput) || ((V2 > V1) && !IsLowerUserInput);
-            // Check if reversal has occured 
-            bool ReversalOccured = UserCorrect != lastResponseWasCorrect;
-            // If reversal has occured and it is not the first trial, increment reversal number
-            if (ReversalOccured && trialNumber != 1)
+            // Check if reversal has occured (and it isn't the first trial)
+            if (lastResponseWasCorrect.HasValue)
             {
-                reversalNumber++;
+                ReversalOccured = (UserCorrect != lastResponseWasCorrect);
+                // If reversal has occured, increment reversal number
+                if (ReversalOccured)
+                {
+                    reversalNumber++;
+                }
             }
+            // Record current state (including current temp variables) and write to file
+            recordCurrentState(IsLowerUserInput, UserCorrect, ReversalOccured);
+            // Update last response correct state
+            lastResponseWasCorrect = UserCorrect;
             // Calculate new VDiff value
             if (UserCorrect) // If user is correct
             {
                 VDiff = VDiff - VDiffMutator; // Move closer towards V1
             }
             else // If the user is incorrect
-            { 
+            {
                 VDiff = VDiff + VDiffMutator; // Move further from V1
             }
             // Ensure VDiff cannot go below 0 (occurs if VDiffMutator is changed to less "round" number)
             // Side note: Also ensures that consistent correct answers eventually lead to V1 = V2, and therefore mandatory reversal
-            VDiff = Math.Max(0,VDiff);
-            // Record current state (including current temp variables) and write to file
-            recordCurrentState(IsLowerUserInput, UserCorrect, ReversalOccured);
-            // Update last response correct state
-            lastResponseWasCorrect = UserCorrect;
-            // Calculate the new V2 value and return it
+            VDiff = Math.Max(0, VDiff);
             // Note: Program acknowledges reversal occurance by checking reversal number after calling this function
             return generateStimuliValues();
         }
-        private int generateStimuliValues() // Initialise V1 and generate V2 value
+        private int generateStimuliValues() // Initialise V1 and generate V2 value (return value for potential design choice)
         {
             // If V1 unassigned (By removing initialise value above)
             if (V1 == null)
@@ -72,12 +83,75 @@ namespace EFGHIJ
             trialNumber++; // Increment trial number
             return Math.Max(0, Math.Min(65535, V2)); // Ensure V2 is within bounds of controller (0 and 65535), then return V2
         }
+        private void initialiseSaving()
+        {
+            if (isVanilla)
+            {
+                filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "VanillaTrialResults", "VanillaResults.xlsx"); // Set file path to the Vanilla trial folder
+            }
+            else
+            {
+                filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "GamifiedTrialResults", "GamifiedResults.xlsx"); // Set file path to the Gamified trial folder
+            }
+            if (!File.Exists(filePath)) // If the file doesnt exist already in path
+            {
+                using (ExcelPackage package = new ExcelPackage())
+                {
+                    makeNewContestantWorksheet(package); // Create new contestant worksheet
+                    package.SaveAs(new FileInfo(filePath)); // Save As the file to the filepath
+                }
+            }
+            else // If the file does exist in path
+            {
+                using (ExcelPackage package = new ExcelPackage(new FileInfo(filePath)))
+                {
+                    makeNewContestantWorksheet(package); // Create new contestant worksheet
+                    package.Save(); // Save the file to the filepath
+                }
+            }
+        }
+        private void makeNewContestantWorksheet(ExcelPackage iPackage)
+        {
+            contestantNumber = iPackage.Workbook.Worksheets.Count + 1;
+            ExcelWorksheet GamifiedResults = iPackage.Workbook.Worksheets.Add($"Contestant{contestantNumber}");
+            GamifiedResults.Cells[1, 1].Value = "trialNumber";
+            GamifiedResults.Cells[1, 2].Value = "v1Value";
+            GamifiedResults.Cells[1, 3].Value = "v2Value";
+            GamifiedResults.Cells[1, 4].Value = "vDiffValue";
+            GamifiedResults.Cells[1, 5].Value = "vDiffMutatorValue";
+            GamifiedResults.Cells[1, 6].Value = "userInput";
+            GamifiedResults.Cells[1, 7].Value = "isInputCorrect";
+            GamifiedResults.Cells[1, 8].Value = "isLastResponseCorrect";
+            GamifiedResults.Cells[1, 9].Value = "isReversal";
+            GamifiedResults.Cells[1, 10].Value = "totalReversalNumberInclusive";
+        }
         private void recordCurrentState(bool iIsLowerUserInput, bool iUserCorrect, bool iReversalOccured) // Records current state and writes to file for data analysis
         {
-            // RECORD USER DATA HERE - TBI
-            //
-            //
-            //
+            string IsLowerUserInputString;
+            if (iIsLowerUserInput) // Convert the user input boolean into readable string for saving
+            {
+                IsLowerUserInputString = "Lower";
+            }
+            else
+            {
+                IsLowerUserInputString = "Higher";
+            }
+            using (ExcelPackage package = new ExcelPackage(new FileInfo(filePath)))
+            {
+                ExcelWorksheet currentContestant = package.Workbook.Worksheets[package.Workbook.Worksheets.Count - 1]; // Open current worksheet (0 indexed)
+                int currentNewRow = currentContestant.Dimension.End.Row + 1; // Get the final row and add 1 to get the next row to write in
+                currentContestant.Cells[currentNewRow, 1].Value = trialNumber;
+                currentContestant.Cells[currentNewRow, 2].Value = V1;
+                currentContestant.Cells[currentNewRow, 3].Value = V2;
+                currentContestant.Cells[currentNewRow, 4].Value = VDiff;
+                currentContestant.Cells[currentNewRow, 5].Value = VDiffMutator;
+                currentContestant.Cells[currentNewRow, 6].Value = IsLowerUserInputString;
+                currentContestant.Cells[currentNewRow, 7].Value = iUserCorrect;
+                currentContestant.Cells[currentNewRow, 8].Value = lastResponseWasCorrect;
+                currentContestant.Cells[currentNewRow, 9].Value = iReversalOccured;
+                currentContestant.Cells[currentNewRow, 10].Value = reversalNumber;
+                package.Save(); // Save the file to the filepath
+            }
         }
         public int getReversalNumber() // Get reversal number
         { 
