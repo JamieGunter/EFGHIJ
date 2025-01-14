@@ -77,8 +77,11 @@ namespace EFGHIJ
                 TaskConclusionForm taskConclusionForm = new TaskConclusionForm(this);
                 taskConclusionForm.Show();
             }
-            // Create next trial if game has not concluded
-            createNextTrial();
+            else
+            {
+                // Create next trial if game has not concluded
+                createNextTrial();
+            }
         }
         private void V2IsNotLowerButton_Click(object sender, EventArgs e)
         {
@@ -93,8 +96,11 @@ namespace EFGHIJ
                 TaskConclusionForm taskConclusionForm = new TaskConclusionForm(this);
                 taskConclusionForm.Show();
             }
-            // Create next trial if game has not concluded
-            createNextTrial();
+            else
+            {
+                // Create next trial if game has not concluded
+                createNextTrial();
+            }
         }
         private async void beginTaskButton_Click(object sender, EventArgs e)
         {
