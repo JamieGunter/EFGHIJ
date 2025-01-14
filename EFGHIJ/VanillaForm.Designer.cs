@@ -40,15 +40,15 @@
             this.instructionLabel = new System.Windows.Forms.Label();
             this.beginTaskButton = new System.Windows.Forms.Button();
             this.VanillaTaskNumberTitle = new System.Windows.Forms.Label();
+            this.VanillaRightDpadGlyphImage = new System.Windows.Forms.PictureBox();
+            this.VanillaLeftDpadGlyphImage = new System.Windows.Forms.PictureBox();
             this.VanillaDownDpadGlyphImage = new System.Windows.Forms.PictureBox();
             this.VanillaUpDpadGlyphImage = new System.Windows.Forms.PictureBox();
-            this.VanillaLeftDpadGlyphImage = new System.Windows.Forms.PictureBox();
-            this.VanillaRightDpadGlyphImage = new System.Windows.Forms.PictureBox();
             this.taskInitiatorGridBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.VanillaRightDpadGlyphImage)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.VanillaLeftDpadGlyphImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.VanillaDownDpadGlyphImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.VanillaUpDpadGlyphImage)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.VanillaLeftDpadGlyphImage)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.VanillaRightDpadGlyphImage)).BeginInit();
             this.SuspendLayout();
             // 
             // getOriginalStimuliButton
@@ -170,6 +170,28 @@
             this.VanillaTaskNumberTitle.Text = "Task Number";
             this.VanillaTaskNumberTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // VanillaRightDpadGlyphImage
+            // 
+            this.VanillaRightDpadGlyphImage.BackColor = System.Drawing.Color.Transparent;
+            this.VanillaRightDpadGlyphImage.Image = global::EFGHIJ.Properties.Resources.RightGlyphDPadGlyphMap;
+            this.VanillaRightDpadGlyphImage.Location = new System.Drawing.Point(581, 194);
+            this.VanillaRightDpadGlyphImage.Name = "VanillaRightDpadGlyphImage";
+            this.VanillaRightDpadGlyphImage.Size = new System.Drawing.Size(63, 63);
+            this.VanillaRightDpadGlyphImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.VanillaRightDpadGlyphImage.TabIndex = 10;
+            this.VanillaRightDpadGlyphImage.TabStop = false;
+            // 
+            // VanillaLeftDpadGlyphImage
+            // 
+            this.VanillaLeftDpadGlyphImage.BackColor = System.Drawing.Color.Transparent;
+            this.VanillaLeftDpadGlyphImage.Image = global::EFGHIJ.Properties.Resources.LeftGlyphDPadGlyphMap;
+            this.VanillaLeftDpadGlyphImage.Location = new System.Drawing.Point(157, 194);
+            this.VanillaLeftDpadGlyphImage.Name = "VanillaLeftDpadGlyphImage";
+            this.VanillaLeftDpadGlyphImage.Size = new System.Drawing.Size(63, 63);
+            this.VanillaLeftDpadGlyphImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.VanillaLeftDpadGlyphImage.TabIndex = 9;
+            this.VanillaLeftDpadGlyphImage.TabStop = false;
+            // 
             // VanillaDownDpadGlyphImage
             // 
             this.VanillaDownDpadGlyphImage.BackColor = System.Drawing.Color.Transparent;
@@ -192,28 +214,6 @@
             this.VanillaUpDpadGlyphImage.TabIndex = 7;
             this.VanillaUpDpadGlyphImage.TabStop = false;
             // 
-            // VanillaLeftDpadGlyphImage
-            // 
-            this.VanillaLeftDpadGlyphImage.BackColor = System.Drawing.Color.Transparent;
-            this.VanillaLeftDpadGlyphImage.Image = global::EFGHIJ.Properties.Resources.LeftGlyphDPadGlyphMap;
-            this.VanillaLeftDpadGlyphImage.Location = new System.Drawing.Point(157, 194);
-            this.VanillaLeftDpadGlyphImage.Name = "VanillaLeftDpadGlyphImage";
-            this.VanillaLeftDpadGlyphImage.Size = new System.Drawing.Size(63, 63);
-            this.VanillaLeftDpadGlyphImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.VanillaLeftDpadGlyphImage.TabIndex = 9;
-            this.VanillaLeftDpadGlyphImage.TabStop = false;
-            // 
-            // VanillaRightDpadGlyphImage
-            // 
-            this.VanillaRightDpadGlyphImage.BackColor = System.Drawing.Color.Transparent;
-            this.VanillaRightDpadGlyphImage.Image = global::EFGHIJ.Properties.Resources.RightGlyphDPadGlyphMap;
-            this.VanillaRightDpadGlyphImage.Location = new System.Drawing.Point(581, 194);
-            this.VanillaRightDpadGlyphImage.Name = "VanillaRightDpadGlyphImage";
-            this.VanillaRightDpadGlyphImage.Size = new System.Drawing.Size(63, 63);
-            this.VanillaRightDpadGlyphImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.VanillaRightDpadGlyphImage.TabIndex = 10;
-            this.VanillaRightDpadGlyphImage.TabStop = false;
-            // 
             // VanillaForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -234,10 +234,10 @@
             this.Text = "Vanilla Interface";
             this.taskInitiatorGridBox.ResumeLayout(false);
             this.taskInitiatorGridBox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.VanillaRightDpadGlyphImage)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.VanillaLeftDpadGlyphImage)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.VanillaDownDpadGlyphImage)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.VanillaUpDpadGlyphImage)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.VanillaLeftDpadGlyphImage)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.VanillaRightDpadGlyphImage)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

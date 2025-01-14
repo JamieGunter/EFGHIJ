@@ -16,14 +16,12 @@ namespace EFGHIJ
         {
             InitializeComponent();
         }
-
         private void gamifiedButton_Click(object sender, EventArgs e)
         {
             GamifiedForm gamifiedForm = new GamifiedForm();
             gamifiedForm.Show();
             this.Hide();
         }
-
         private void vanillaButton_Click_1(object sender, EventArgs e)
         {
             VanillaForm vanillaForm = new VanillaForm();
