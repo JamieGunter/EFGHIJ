@@ -112,5 +112,19 @@ namespace EFGHIJ
                 Thread.Sleep(10); // Limit poll amount
             }
         }
+        public void EnableListener() // Allows external classes to enable the listener by making threadBusy false
+        {
+            lock (variableLock)
+            {
+                threadBusy = false;
+            }
+        }
+        public void DisableListener() // Allows external classes to disable the listener by making threadBusy true
+        {
+            lock (variableLock)
+            {
+                threadBusy = true;
+            }
+        }
     }
 }

@@ -117,21 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="instructionLabel.Text" xml:space="preserve">
-    <value>1) You will be presented with 2 vibrations for a brief period, named V1 and V2.
-2) The first vibration (V1) will remain consistent and never change throughout
-this portion of the experiement. It will always be the first vibration to be presented
-in each vibration pair and will act as a reference for you and the task.
-3) The second vibration (V2) will change and always be the second vibration in a
-vibration pair.
-4) During the course of this section, you will be presented with multiple vibration
-pairs (the V1 and a V2). Using the glyphs/buttons presented, select if the comparison
-vibration (V2), is either [LESS INTENSE] or [MORE INTENSE] than the first vibration (V1).
-5) Each successive selection results in a more difficult/similar vibration, each unsuccessful
-selection results in a less difficult/similar vibration.
-6) This portion concludes after 6 changes in consistency occur (a successful "streak" 
-being broken with a incorrect answer, or, a unsuccessful "streak" being broken with
-a correct answer).
-</value>
-  </data>
 </root>

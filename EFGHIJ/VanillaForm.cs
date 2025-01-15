@@ -22,11 +22,24 @@ namespace EFGHIJ
         public VanillaForm()
         {
             InitializeComponent();
-            controllerInterface = new ControllerInterface(this);
+            controllerInterface = new ControllerInterface(this); // Create controller instance (listener enabled by default)
+            controllerInterface.DisableListener(); // Disable listener while instructions are up
+            VanillaInstructionsForm vanillaInstructionsForm = new VanillaInstructionsForm(); // Create the instructions form
+            vanillaInstructionsForm.FormClosed += new FormClosedEventHandler(vanillaInstructionsFormClosed); // Add event handler to re-enable listener when instructions form is closed
+            vanillaInstructionsForm.ShowDialog(); // Ensure users cannot interact with components while the instructions form exists
+            createNextTrial(true);
         }
-        public async void createNextTrial() // Create the next trial
+        private void vanillaInstructionsFormClosed(object sender, FormClosedEventArgs e) // Event handler to re-enable listener when instrunctions form is closed
+        {
+            controllerInterface.EnableListener();
+        }
+        public async void createNextTrial(bool firstRun) // Create the next trial
         {
             disableAllButtons(); // Disable all buttons so user cannot input multiple commands
+            if (firstRun)
+            {
+                await Task.Delay(2000); // Wait 2 Seconds
+            }
             V1 = jndInterface.getV1Value(); // Get V1 value
             V2 = jndInterface.getV2Value(); // Get V2 value
             trialNumber = jndInterface.getTrialNumber(); // Get current trial number
@@ -80,7 +93,7 @@ namespace EFGHIJ
             else
             {
                 // Create next trial if game has not concluded
-                createNextTrial();
+                createNextTrial(false);
             }
         }
         private void V2IsNotLowerButton_Click(object sender, EventArgs e)
@@ -99,14 +112,8 @@ namespace EFGHIJ
             else
             {
                 // Create next trial if game has not concluded
-                createNextTrial();
+                createNextTrial(false);
             }
-        }
-        private async void beginTaskButton_Click(object sender, EventArgs e)
-        {
-            taskInitiatorGridBox.Visible = false;
-            await Task.Delay(2000); // Wait 2 Seconds
-            createNextTrial();
         }
         private void disableAllButtons() // Disable all buttons
         {

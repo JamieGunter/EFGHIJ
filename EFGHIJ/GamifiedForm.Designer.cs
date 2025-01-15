@@ -28,12 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GamifiedForm));
-            this.taskInitiatorGridBox = new System.Windows.Forms.GroupBox();
-            this.GamifiedSubheadingLabel = new System.Windows.Forms.Label();
-            this.GamifiedTitleLabel = new System.Windows.Forms.Label();
-            this.instructionLabel = new System.Windows.Forms.Label();
-            this.beginTaskButton = new System.Windows.Forms.Button();
             this.VanillaLeftDpadGlyphImage = new System.Windows.Forms.PictureBox();
             this.V2IsLowerButton = new System.Windows.Forms.Button();
             this.VanillaRightDpadGlyphImage = new System.Windows.Forms.PictureBox();
@@ -42,77 +36,23 @@
             this.V2IsNotLowerButton = new System.Windows.Forms.Button();
             this.getNewStimuliButton = new System.Windows.Forms.Button();
             this.getOriginalStimuliButton = new System.Windows.Forms.Button();
-            this.VanillaTaskNumberTitle = new System.Windows.Forms.Label();
+            this.GamifiedTaskNumberTitle = new System.Windows.Forms.Label();
             this.trialNumberLabel = new System.Windows.Forms.Label();
-            this.taskInitiatorGridBox.SuspendLayout();
+            this.GamifiedScoreTitle = new System.Windows.Forms.Label();
+            this.scoreValueLabel = new System.Windows.Forms.Label();
+            this.GamifiedStreakTitle = new System.Windows.Forms.Label();
+            this.streakValueLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.VanillaLeftDpadGlyphImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.VanillaRightDpadGlyphImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.VanillaDownDpadGlyphImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.VanillaUpDpadGlyphImage)).BeginInit();
             this.SuspendLayout();
             // 
-            // taskInitiatorGridBox
-            // 
-            this.taskInitiatorGridBox.Controls.Add(this.GamifiedSubheadingLabel);
-            this.taskInitiatorGridBox.Controls.Add(this.GamifiedTitleLabel);
-            this.taskInitiatorGridBox.Controls.Add(this.instructionLabel);
-            this.taskInitiatorGridBox.Controls.Add(this.beginTaskButton);
-            this.taskInitiatorGridBox.Location = new System.Drawing.Point(1, -6);
-            this.taskInitiatorGridBox.Name = "taskInitiatorGridBox";
-            this.taskInitiatorGridBox.Size = new System.Drawing.Size(802, 457);
-            this.taskInitiatorGridBox.TabIndex = 6;
-            this.taskInitiatorGridBox.TabStop = false;
-            // 
-            // GamifiedSubheadingLabel
-            // 
-            this.GamifiedSubheadingLabel.AutoSize = true;
-            this.GamifiedSubheadingLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.GamifiedSubheadingLabel.Location = new System.Drawing.Point(108, 45);
-            this.GamifiedSubheadingLabel.Name = "GamifiedSubheadingLabel";
-            this.GamifiedSubheadingLabel.Size = new System.Drawing.Size(587, 40);
-            this.GamifiedSubheadingLabel.TabIndex = 3;
-            this.GamifiedSubheadingLabel.Text = "Using either the Directional Pad (DPad) on the left side of the controller,\r\nor t" +
-    "he mouse to click the buttons, please perform the following task:";
-            this.GamifiedSubheadingLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // GamifiedTitleLabel
-            // 
-            this.GamifiedTitleLabel.AutoSize = true;
-            this.GamifiedTitleLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))));
-            this.GamifiedTitleLabel.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.GamifiedTitleLabel.Location = new System.Drawing.Point(189, 9);
-            this.GamifiedTitleLabel.Name = "GamifiedTitleLabel";
-            this.GamifiedTitleLabel.Size = new System.Drawing.Size(425, 29);
-            this.GamifiedTitleLabel.TabIndex = 2;
-            this.GamifiedTitleLabel.Text = "Welcome to the Lock Picking Game";
-            this.GamifiedTitleLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // instructionLabel
-            // 
-            this.instructionLabel.AutoSize = true;
-            this.instructionLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.instructionLabel.Location = new System.Drawing.Point(83, 93);
-            this.instructionLabel.Name = "instructionLabel";
-            this.instructionLabel.Size = new System.Drawing.Size(637, 280);
-            this.instructionLabel.TabIndex = 1;
-            this.instructionLabel.Text = resources.GetString("instructionLabel.Text");
-            this.instructionLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // beginTaskButton
-            // 
-            this.beginTaskButton.Location = new System.Drawing.Point(295, 379);
-            this.beginTaskButton.Name = "beginTaskButton";
-            this.beginTaskButton.Size = new System.Drawing.Size(212, 67);
-            this.beginTaskButton.TabIndex = 0;
-            this.beginTaskButton.Text = "Begin";
-            this.beginTaskButton.UseVisualStyleBackColor = true;
-            this.beginTaskButton.Click += new System.EventHandler(this.beginTaskButton_Click);
-            // 
             // VanillaLeftDpadGlyphImage
             // 
             this.VanillaLeftDpadGlyphImage.BackColor = System.Drawing.Color.Transparent;
             this.VanillaLeftDpadGlyphImage.Image = global::EFGHIJ.Properties.Resources.LeftGlyphDPadGlyphMap;
-            this.VanillaLeftDpadGlyphImage.Location = new System.Drawing.Point(150, 194);
+            this.VanillaLeftDpadGlyphImage.Location = new System.Drawing.Point(578, 218);
             this.VanillaLeftDpadGlyphImage.Name = "VanillaLeftDpadGlyphImage";
             this.VanillaLeftDpadGlyphImage.Size = new System.Drawing.Size(63, 63);
             this.VanillaLeftDpadGlyphImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -121,7 +61,7 @@
             // 
             // V2IsLowerButton
             // 
-            this.V2IsLowerButton.Location = new System.Drawing.Point(219, 194);
+            this.V2IsLowerButton.Location = new System.Drawing.Point(647, 218);
             this.V2IsLowerButton.Name = "V2IsLowerButton";
             this.V2IsLowerButton.Size = new System.Drawing.Size(149, 63);
             this.V2IsLowerButton.TabIndex = 10;
@@ -133,7 +73,7 @@
             // 
             this.VanillaRightDpadGlyphImage.BackColor = System.Drawing.Color.Transparent;
             this.VanillaRightDpadGlyphImage.Image = global::EFGHIJ.Properties.Resources.RightGlyphDPadGlyphMap;
-            this.VanillaRightDpadGlyphImage.Location = new System.Drawing.Point(585, 194);
+            this.VanillaRightDpadGlyphImage.Location = new System.Drawing.Point(578, 149);
             this.VanillaRightDpadGlyphImage.Name = "VanillaRightDpadGlyphImage";
             this.VanillaRightDpadGlyphImage.Size = new System.Drawing.Size(63, 63);
             this.VanillaRightDpadGlyphImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -164,7 +104,7 @@
             // 
             // V2IsNotLowerButton
             // 
-            this.V2IsNotLowerButton.Location = new System.Drawing.Point(430, 194);
+            this.V2IsNotLowerButton.Location = new System.Drawing.Point(647, 149);
             this.V2IsNotLowerButton.Name = "V2IsNotLowerButton";
             this.V2IsNotLowerButton.Size = new System.Drawing.Size(149, 63);
             this.V2IsNotLowerButton.TabIndex = 14;
@@ -192,48 +132,93 @@
             this.getOriginalStimuliButton.UseVisualStyleBackColor = true;
             this.getOriginalStimuliButton.Click += new System.EventHandler(this.getOriginalStimuliButton_Click);
             // 
-            // VanillaTaskNumberTitle
+            // GamifiedTaskNumberTitle
             // 
-            this.VanillaTaskNumberTitle.AutoSize = true;
-            this.VanillaTaskNumberTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.VanillaTaskNumberTitle.Location = new System.Drawing.Point(343, 112);
-            this.VanillaTaskNumberTitle.Name = "VanillaTaskNumberTitle";
-            this.VanillaTaskNumberTitle.Size = new System.Drawing.Size(114, 20);
-            this.VanillaTaskNumberTitle.TabIndex = 19;
-            this.VanillaTaskNumberTitle.Text = "Task Number";
-            this.VanillaTaskNumberTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.GamifiedTaskNumberTitle.AutoSize = true;
+            this.GamifiedTaskNumberTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GamifiedTaskNumberTitle.Location = new System.Drawing.Point(8, 9);
+            this.GamifiedTaskNumberTitle.Name = "GamifiedTaskNumberTitle";
+            this.GamifiedTaskNumberTitle.Size = new System.Drawing.Size(119, 20);
+            this.GamifiedTaskNumberTitle.TabIndex = 19;
+            this.GamifiedTaskNumberTitle.Text = "Lock Number:";
+            this.GamifiedTaskNumberTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // trialNumberLabel
             // 
             this.trialNumberLabel.AutoSize = true;
-            this.trialNumberLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F);
-            this.trialNumberLabel.Location = new System.Drawing.Point(379, 138);
+            this.trialNumberLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.trialNumberLabel.Location = new System.Drawing.Point(133, 9);
             this.trialNumberLabel.Name = "trialNumberLabel";
-            this.trialNumberLabel.Size = new System.Drawing.Size(42, 46);
+            this.trialNumberLabel.Size = new System.Drawing.Size(19, 20);
             this.trialNumberLabel.TabIndex = 18;
             this.trialNumberLabel.Text = "1";
             this.trialNumberLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // GamifiedScoreTitle
+            // 
+            this.GamifiedScoreTitle.AutoSize = true;
+            this.GamifiedScoreTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GamifiedScoreTitle.Location = new System.Drawing.Point(8, 33);
+            this.GamifiedScoreTitle.Name = "GamifiedScoreTitle";
+            this.GamifiedScoreTitle.Size = new System.Drawing.Size(76, 20);
+            this.GamifiedScoreTitle.TabIndex = 20;
+            this.GamifiedScoreTitle.Text = "SCORE:";
+            this.GamifiedScoreTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // scoreValueLabel
+            // 
+            this.scoreValueLabel.AutoSize = true;
+            this.scoreValueLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.scoreValueLabel.Location = new System.Drawing.Point(90, 33);
+            this.scoreValueLabel.Name = "scoreValueLabel";
+            this.scoreValueLabel.Size = new System.Drawing.Size(19, 20);
+            this.scoreValueLabel.TabIndex = 21;
+            this.scoreValueLabel.Text = "0";
+            this.scoreValueLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // GamifiedStreakTitle
+            // 
+            this.GamifiedStreakTitle.AutoSize = true;
+            this.GamifiedStreakTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GamifiedStreakTitle.Location = new System.Drawing.Point(8, 62);
+            this.GamifiedStreakTitle.Name = "GamifiedStreakTitle";
+            this.GamifiedStreakTitle.Size = new System.Drawing.Size(67, 20);
+            this.GamifiedStreakTitle.TabIndex = 22;
+            this.GamifiedStreakTitle.Text = "Streak:";
+            this.GamifiedStreakTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // streakValueLabel
+            // 
+            this.streakValueLabel.AutoSize = true;
+            this.streakValueLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.streakValueLabel.Location = new System.Drawing.Point(81, 62);
+            this.streakValueLabel.Name = "streakValueLabel";
+            this.streakValueLabel.Size = new System.Drawing.Size(19, 20);
+            this.streakValueLabel.TabIndex = 23;
+            this.streakValueLabel.Text = "0";
+            this.streakValueLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // GamifiedForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.taskInitiatorGridBox);
-            this.Controls.Add(this.VanillaTaskNumberTitle);
+            this.Controls.Add(this.streakValueLabel);
+            this.Controls.Add(this.GamifiedStreakTitle);
+            this.Controls.Add(this.scoreValueLabel);
+            this.Controls.Add(this.GamifiedScoreTitle);
+            this.Controls.Add(this.GamifiedTaskNumberTitle);
+            this.Controls.Add(this.VanillaLeftDpadGlyphImage);
             this.Controls.Add(this.trialNumberLabel);
+            this.Controls.Add(this.V2IsLowerButton);
             this.Controls.Add(this.VanillaRightDpadGlyphImage);
             this.Controls.Add(this.VanillaDownDpadGlyphImage);
             this.Controls.Add(this.VanillaUpDpadGlyphImage);
-            this.Controls.Add(this.V2IsNotLowerButton);
             this.Controls.Add(this.getNewStimuliButton);
             this.Controls.Add(this.getOriginalStimuliButton);
-            this.Controls.Add(this.VanillaLeftDpadGlyphImage);
-            this.Controls.Add(this.V2IsLowerButton);
+            this.Controls.Add(this.V2IsNotLowerButton);
             this.Name = "GamifiedForm";
             this.Text = "GamifiedForm";
-            this.taskInitiatorGridBox.ResumeLayout(false);
-            this.taskInitiatorGridBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.VanillaLeftDpadGlyphImage)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.VanillaRightDpadGlyphImage)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.VanillaDownDpadGlyphImage)).EndInit();
@@ -244,12 +229,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.GroupBox taskInitiatorGridBox;
-        private System.Windows.Forms.Label GamifiedSubheadingLabel;
-        private System.Windows.Forms.Label GamifiedTitleLabel;
-        private System.Windows.Forms.Label instructionLabel;
-        private System.Windows.Forms.Button beginTaskButton;
         private System.Windows.Forms.PictureBox VanillaLeftDpadGlyphImage;
         private System.Windows.Forms.Button V2IsLowerButton;
         private System.Windows.Forms.PictureBox VanillaRightDpadGlyphImage;
@@ -258,7 +237,11 @@
         private System.Windows.Forms.Button V2IsNotLowerButton;
         private System.Windows.Forms.Button getNewStimuliButton;
         private System.Windows.Forms.Button getOriginalStimuliButton;
-        private System.Windows.Forms.Label VanillaTaskNumberTitle;
+        private System.Windows.Forms.Label GamifiedTaskNumberTitle;
         private System.Windows.Forms.Label trialNumberLabel;
+        private System.Windows.Forms.Label GamifiedScoreTitle;
+        private System.Windows.Forms.Label scoreValueLabel;
+        private System.Windows.Forms.Label GamifiedStreakTitle;
+        private System.Windows.Forms.Label streakValueLabel;
     }
 }

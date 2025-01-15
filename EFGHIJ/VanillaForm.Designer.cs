@@ -28,23 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VanillaForm));
             this.getOriginalStimuliButton = new System.Windows.Forms.Button();
             this.getNewStimuliButton = new System.Windows.Forms.Button();
             this.V2IsLowerButton = new System.Windows.Forms.Button();
             this.V2IsNotLowerButton = new System.Windows.Forms.Button();
             this.trialNumberLabel = new System.Windows.Forms.Label();
-            this.taskInitiatorGridBox = new System.Windows.Forms.GroupBox();
-            this.VanillaSubheadingLabel = new System.Windows.Forms.Label();
-            this.VanillaTitleLabel = new System.Windows.Forms.Label();
-            this.instructionLabel = new System.Windows.Forms.Label();
-            this.beginTaskButton = new System.Windows.Forms.Button();
             this.VanillaTaskNumberTitle = new System.Windows.Forms.Label();
             this.VanillaRightDpadGlyphImage = new System.Windows.Forms.PictureBox();
             this.VanillaLeftDpadGlyphImage = new System.Windows.Forms.PictureBox();
             this.VanillaDownDpadGlyphImage = new System.Windows.Forms.PictureBox();
             this.VanillaUpDpadGlyphImage = new System.Windows.Forms.PictureBox();
-            this.taskInitiatorGridBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.VanillaRightDpadGlyphImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.VanillaLeftDpadGlyphImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.VanillaDownDpadGlyphImage)).BeginInit();
@@ -101,63 +94,6 @@
             this.trialNumberLabel.TabIndex = 4;
             this.trialNumberLabel.Text = "1";
             this.trialNumberLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // taskInitiatorGridBox
-            // 
-            this.taskInitiatorGridBox.Controls.Add(this.VanillaSubheadingLabel);
-            this.taskInitiatorGridBox.Controls.Add(this.VanillaTitleLabel);
-            this.taskInitiatorGridBox.Controls.Add(this.instructionLabel);
-            this.taskInitiatorGridBox.Controls.Add(this.beginTaskButton);
-            this.taskInitiatorGridBox.Location = new System.Drawing.Point(1, -6);
-            this.taskInitiatorGridBox.Name = "taskInitiatorGridBox";
-            this.taskInitiatorGridBox.Size = new System.Drawing.Size(802, 457);
-            this.taskInitiatorGridBox.TabIndex = 5;
-            this.taskInitiatorGridBox.TabStop = false;
-            // 
-            // VanillaSubheadingLabel
-            // 
-            this.VanillaSubheadingLabel.AutoSize = true;
-            this.VanillaSubheadingLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.VanillaSubheadingLabel.Location = new System.Drawing.Point(108, 45);
-            this.VanillaSubheadingLabel.Name = "VanillaSubheadingLabel";
-            this.VanillaSubheadingLabel.Size = new System.Drawing.Size(587, 40);
-            this.VanillaSubheadingLabel.TabIndex = 3;
-            this.VanillaSubheadingLabel.Text = "Using either the Directional Pad (DPad) on the left side of the controller,\r\nor t" +
-    "he mouse to click the buttons, please perform the following task:";
-            this.VanillaSubheadingLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // VanillaTitleLabel
-            // 
-            this.VanillaTitleLabel.AutoSize = true;
-            this.VanillaTitleLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))));
-            this.VanillaTitleLabel.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.VanillaTitleLabel.Location = new System.Drawing.Point(97, 9);
-            this.VanillaTitleLabel.Name = "VanillaTitleLabel";
-            this.VanillaTitleLabel.Size = new System.Drawing.Size(609, 29);
-            this.VanillaTitleLabel.TabIndex = 2;
-            this.VanillaTitleLabel.Text = "Welcome to the Vanilla Interface of this experiment.";
-            this.VanillaTitleLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // instructionLabel
-            // 
-            this.instructionLabel.AutoSize = true;
-            this.instructionLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.instructionLabel.Location = new System.Drawing.Point(83, 93);
-            this.instructionLabel.Name = "instructionLabel";
-            this.instructionLabel.Size = new System.Drawing.Size(637, 280);
-            this.instructionLabel.TabIndex = 1;
-            this.instructionLabel.Text = resources.GetString("instructionLabel.Text");
-            this.instructionLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // beginTaskButton
-            // 
-            this.beginTaskButton.Location = new System.Drawing.Point(295, 379);
-            this.beginTaskButton.Name = "beginTaskButton";
-            this.beginTaskButton.Size = new System.Drawing.Size(212, 67);
-            this.beginTaskButton.TabIndex = 0;
-            this.beginTaskButton.Text = "Begin";
-            this.beginTaskButton.UseVisualStyleBackColor = true;
-            this.beginTaskButton.Click += new System.EventHandler(this.beginTaskButton_Click);
             // 
             // VanillaTaskNumberTitle
             // 
@@ -219,7 +155,6 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.taskInitiatorGridBox);
             this.Controls.Add(this.VanillaRightDpadGlyphImage);
             this.Controls.Add(this.VanillaLeftDpadGlyphImage);
             this.Controls.Add(this.VanillaDownDpadGlyphImage);
@@ -232,8 +167,6 @@
             this.Controls.Add(this.getOriginalStimuliButton);
             this.Name = "VanillaForm";
             this.Text = "Vanilla Interface";
-            this.taskInitiatorGridBox.ResumeLayout(false);
-            this.taskInitiatorGridBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.VanillaRightDpadGlyphImage)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.VanillaLeftDpadGlyphImage)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.VanillaDownDpadGlyphImage)).EndInit();
@@ -250,11 +183,6 @@
         private System.Windows.Forms.Button V2IsLowerButton;
         private System.Windows.Forms.Button V2IsNotLowerButton;
         private System.Windows.Forms.Label trialNumberLabel;
-        private System.Windows.Forms.GroupBox taskInitiatorGridBox;
-        private System.Windows.Forms.Label instructionLabel;
-        private System.Windows.Forms.Button beginTaskButton;
-        private System.Windows.Forms.Label VanillaSubheadingLabel;
-        private System.Windows.Forms.Label VanillaTitleLabel;
         private System.Windows.Forms.Label VanillaTaskNumberTitle;
         private System.Windows.Forms.PictureBox VanillaUpDpadGlyphImage;
         private System.Windows.Forms.PictureBox VanillaDownDpadGlyphImage;

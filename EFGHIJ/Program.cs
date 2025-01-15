@@ -15,8 +15,6 @@ namespace EFGHIJ
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            vibrationDebugMenu vibrationDebugMenu = new vibrationDebugMenu();
-            vibrationDebugMenu.Show();
             userInterfaceSelectForm userInterfaceSelectForm = new userInterfaceSelectForm();
             Application.Run(userInterfaceSelectForm);
         }

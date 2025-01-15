@@ -104,6 +104,12 @@
     <Compile Include="GamifiedForm.Designer.cs">
       <DependentUpon>GamifiedForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="GamifiedInstructionsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GamifiedInstructionsForm.Designer.cs">
+      <DependentUpon>GamifiedInstructionsForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -117,11 +123,11 @@
     </Compile>
     <Compile Include="JNDInterface.cs" />
     <Compile Include="ControllerInterface.cs" />
-    <Compile Include="vibrationDebugMenu.cs">
+    <Compile Include="VanillaInstructionsForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="vibrationDebugMenu.Designer.cs">
-      <DependentUpon>vibrationDebugMenu.cs</DependentUpon>
+    <Compile Include="VanillaInstructionsForm.Designer.cs">
+      <DependentUpon>VanillaInstructionsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="VanillaForm.cs">
       <SubType>Form</SubType>
@@ -140,11 +146,14 @@
     <EmbeddedResource Include="GamifiedForm.resx">
       <DependentUpon>GamifiedForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="GamifiedInstructionsForm.resx">
+      <DependentUpon>GamifiedInstructionsForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="VanillaForm.resx">
       <DependentUpon>VanillaForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="vibrationDebugMenu.resx">
-      <DependentUpon>vibrationDebugMenu.cs</DependentUpon>
+    <EmbeddedResource Include="VanillaInstructionsForm.resx">
+      <DependentUpon>VanillaInstructionsForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserInterfaceSelectForm.resx">
       <DependentUpon>UserInterfaceSelectForm.cs</DependentUpon>
