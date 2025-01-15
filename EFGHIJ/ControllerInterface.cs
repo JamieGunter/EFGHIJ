@@ -127,7 +127,7 @@ namespace EFGHIJ
                 threadBusy = true; // Flag that thread is no-longer busy
             }
         }
-        private async void clearInputBuffer() // Clears any buffered input received whilst the thread was busy
+        private void clearInputBuffer() // Clears any buffered input received whilst the thread was busy
         {
             dPad.Poll(); // Poll the dPad
             dPad.GetBufferedData(); // Get any stale inputs (thus clearing the buffer and not processing them)
