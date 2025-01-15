@@ -36,6 +36,7 @@ namespace EFGHIJ
         public async void createNextTrial(bool firstRun) // Create the next trial
         {
             disableAllButtons(); // Disable all buttons so user cannot input multiple commands
+            controllerInterface.DisableListener(); // Disable listener so user cannot input multiple commands (via controller)
             if (firstRun)
             {
                 await Task.Delay(2000); // Wait 2 Seconds
@@ -56,30 +57,36 @@ namespace EFGHIJ
             controllerInterface.SetVibration(0, 0); // Stop vibration
             getNewStimuliButton.BackColor = Color.LightGray; // Change back to white to signify no longer showing stimuli
             enableAllButtons(); // Enable all buttons so user can input again
+            controllerInterface.EnableListener(); // Enable listener so user can input again (via controller)
         }
         private async void getOriginalStimuliButton_Click(object sender, EventArgs e)
         {
             disableAllButtons(); // Disable all buttons so user cannot input multiple commands
+            controllerInterface.DisableListener(); // Disable listener so user cannot input multiple commands (via controller)
             controllerInterface.SetVibration(V1, V1); // Vibrate at V1 value
             getOriginalStimuliButton.BackColor = Color.Green; // Change to green to signify showing stimuli
             await Task.Delay(2000); // Allow vibration for 2 seconds
             controllerInterface.SetVibration(0, 0); // Stop vibration
             getOriginalStimuliButton.BackColor = Color.LightGray; // Change back to white to signify no longer showing stimuli
             enableAllButtons(); // Enable all buttons so user can input again
+            controllerInterface.EnableListener(); // Enable listener so user can input again (via controller)
         }
         private async void getNewStimuliButton_Click(object sender, EventArgs e)
         {
             disableAllButtons(); // Disable all buttons so user cannot input multiple commands
+            controllerInterface.DisableListener(); // Disable listener so user cannot input multiple commands (via controller)
             controllerInterface.SetVibration(V2, V2); // Vibrate at V2 value
             getNewStimuliButton.BackColor = Color.Green; // Change to green to signify showing stimuli
             await Task.Delay(2000); // Allow vibration for 2 seconds
             controllerInterface.SetVibration(0, 0); // Stop vibration
             getNewStimuliButton.BackColor = Color.LightGray; // Change back to white to signify no longer showing stimuli
             enableAllButtons(); // Enable all buttons so user can input again
+            controllerInterface.EnableListener(); // Enable listener so user can input again (via controller)
         }
         private void V2IsLowerButton_Click(object sender, EventArgs e)
         {
             disableAllButtons(); // Disable all buttons so user cannot input multiple commands (Just in case of noise/multiple successive inputs)
+            controllerInterface.DisableListener(); // Disable listener so user cannot input multiple commands (via controller)
             // Check if user is correct and if reversal occurs (User input is that V2 is lower than V1), then get new V2 value
             V2 = jndInterface.checkReversalAndCalculateVDiff(true);
             // Update revesal number to check if reversal has occured
@@ -99,6 +106,7 @@ namespace EFGHIJ
         private void V2IsNotLowerButton_Click(object sender, EventArgs e)
         {
             disableAllButtons(); // Disable all buttons so user cannot input multiple commands (Just in case of noise/multiple successive inputs)
+            controllerInterface.DisableListener(); // Disable listener so user cannot input multiple commands (via controller)
             // Check if user is correct and if reversal occurs (User input is that V2 is higher than V1), then get new V2 value
             V2 = jndInterface.checkReversalAndCalculateVDiff(false);
             // Update revesal number to check if reversal has occured

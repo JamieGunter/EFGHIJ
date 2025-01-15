@@ -116,15 +116,21 @@ namespace EFGHIJ
         {
             lock (variableLock)
             {
-                threadBusy = false;
+                threadBusy = false; // Flag that thread is busy
             }
+            clearInputBuffer(); // Clears any buffered input received whilst the thread was busy
         }
         public void DisableListener() // Allows external classes to disable the listener by making threadBusy true
         {
             lock (variableLock)
             {
-                threadBusy = true;
+                threadBusy = true; // Flag that thread is no-longer busy
             }
+        }
+        private async void clearInputBuffer() // Clears any buffered input received whilst the thread was busy
+        {
+            dPad.Poll(); // Poll the dPad
+            dPad.GetBufferedData(); // Get any stale inputs (thus clearing the buffer and not processing them)
         }
     }
 }
