@@ -150,7 +150,7 @@ namespace EFGHIJ
                 }
                 updateScoreLabel(); // Update the score visually
                 updateScoreboardDGV(); // Update the scoreboard
-                TaskConclusionFormVanilla taskConclusionForm = new TaskConclusionFormVanilla(this);
+                TaskConclusionFormGamified taskConclusionForm = new TaskConclusionFormGamified(this, contestantInitials, Score);
                 taskConclusionForm.Show();
             }
             else
@@ -199,7 +199,7 @@ namespace EFGHIJ
                 }
                 updateScoreLabel(); // Update the score visually
                 updateScoreboardDGV(); // Update the scoreboard
-                TaskConclusionFormVanilla taskConclusionForm = new TaskConclusionFormVanilla(this);
+                TaskConclusionFormGamified taskConclusionForm = new TaskConclusionFormGamified(this, contestantInitials, Score);
                 taskConclusionForm.Show();
             }
             else

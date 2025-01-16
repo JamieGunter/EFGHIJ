@@ -14,6 +14,7 @@ namespace EFGHIJ
         private string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "GamifiedTrialResults", "GamifiedScoreboard.xlsx"); // Variable for the path to excel sheet(s)
         private string contestantInitials; // Variable for the contestant's initials
         private double currentScore; // Variable for the current score
+        private int? contestantRow = null; // Contestant's row
         public ScoreboardInterface(string iContestantInitials)
         {
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial; // Set EPPlus license to non-commercial
@@ -39,7 +40,6 @@ namespace EFGHIJ
         }
         private void updateScoreboard() // Update the scoreboard
         {
-            int? contestantRow = null;
             using (ExcelPackage package = new ExcelPackage(new FileInfo(filePath)))
             {
                 ExcelWorksheet scoreboardWorksheet = package.Workbook.Worksheets[0]; // Open current worksheet (0 indexed)
@@ -53,7 +53,6 @@ namespace EFGHIJ
                         break;
                     }
                 }
-
                 if (contestantRow == null) // If the contestant's initials doesn't exist, add to the bottom
                 {
                     scoreboardWorksheet.Cells[currentNewRow, 1].Value = contestantInitials;
