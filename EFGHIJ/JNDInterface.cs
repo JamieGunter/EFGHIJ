@@ -169,5 +169,9 @@ namespace EFGHIJ
         {
             return V2;
         }
+        public double getVDiff() // Get VDiff value (to calculate score in gamified verison)
+        {
+            return VDiff;
+        }
     }
 }
