@@ -1,6 +1,6 @@
 ﻿namespace EFGHIJ
 {
-    partial class TaskConclusionForm
+    partial class TaskConclusionFormVanilla
     {
         /// <summary>
         /// Required designer variable.

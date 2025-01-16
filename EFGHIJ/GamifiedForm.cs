@@ -22,6 +22,8 @@ namespace EFGHIJ
         private double previousVDiff; // Record previous VDiff value in variable
         private double Score = 1000.0; // Player's score, initialised to 1000.0
         private int Streak = 0; // Player's streak, initialised to 0
+        private string contestantInitials; // Initialise Contestant's initials string
+        private ScoreboardInterface scoreBoard; // Initialise scoreboard interface
         public GamifiedForm()
         {
             InitializeComponent();
@@ -30,9 +32,14 @@ namespace EFGHIJ
             GamifiedInstructionsForm gamifiedInstructionsForm = new GamifiedInstructionsForm(); // Create the instructions form
             gamifiedInstructionsForm.FormClosed += new FormClosedEventHandler(gamifiedInstructionsFormClosed); // Add event handler to re-enable listener when instructions form is closed
             gamifiedInstructionsForm.ShowDialog(); // Ensure users cannot interact with components while the instructions form exists
-            GamifiedTaskNumberTitle.Text = "Trial: " + trialNumber.ToString(); // Initialise task number label
-            GamifiedScoreTitle.Text = "Score: " + Score.ToString(); // Initialise score label
-            GamifiedStreakTitle.Text = "Streak: " + Streak.ToString(); // Initialise streak label
+            contestantInitials = gamifiedInstructionsForm.GetInitials(); // Get contestant's initials
+            scoreBoard = new ScoreboardInterface(contestantInitials); // Create scoreboard interface instance
+            ScoreLeaderboardDGV.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill; // Make the DVG columns fill the width of the DGV
+            ScoreLeaderboardDGV.RowHeadersVisible = false; // Remove row header in DVG
+            updateScoreboardDGV(); // Initialse the scoreboard DGV
+            updateTrialLabel(); // Initialise trial label
+            updateScoreLabel(); // Initialise score label
+            updateStreakLabel(); // Initialise streak label
             createNextTrial(true);
         }
         private void gamifiedInstructionsFormClosed(object sender, FormClosedEventArgs e) // Event handler to re-enable listener when instrunctions form is closed
@@ -55,15 +62,16 @@ namespace EFGHIJ
                 }
                 else // Lost last trial
                 {
-                    Score -= 100.0 - (50 * Streak); ; // Remove 100 score + Streak bonus (Negative multiplier)
+                    Score -= 100.0 - (50 * Streak); // Remove 100 score + Streak bonus (Negative multiplier)
                 }
                 updateScoreLabel(); // Update the score visually
+                updateScoreboardDGV(); // Update the scoreboard
             }
             V1 = jndInterface.getV1Value(); // Get V1 value
             V2 = jndInterface.getV2Value(); // Get V2 value
             previousVDiff = jndInterface.getVDiff(); // Get previous VDiff value
             trialNumber = jndInterface.getTrialNumber(); // Get current trial number
-            GamifiedTaskNumberTitle.Text = "Trial: " + trialNumber.ToString(); // Update trial number label
+            updateTrialLabel(); // Update the trial number visually
             controllerInterface.SetVibration(V1, V1); // Vibrate at V1 value
             getOriginalStimuliButton.BackColor = Color.Green; // Change to green to signify showing stimuli
             await Task.Delay(2000); // Allow vibration for 2 seconds
@@ -134,14 +142,15 @@ namespace EFGHIJ
                 // Do final visual score update
                 if (jndInterface.getVDiff() < previousVDiff) // Won last trial
                 {
-                    Score += 100.0; // Add 100 score
+                    Score += 100.0 + (50 * Streak); // Add 100 score + Streak bonus
                 }
                 else // Lost last trial
                 {
-                    Score -= 100.0; // Remove 100 score
+                    Score -= 100.0 - (50 * Streak); // Remove 100 score + Streak bonus (Negative multiplier)
                 }
                 updateScoreLabel(); // Update the score visually
-                TaskConclusionForm taskConclusionForm = new TaskConclusionForm(this);
+                updateScoreboardDGV(); // Update the scoreboard
+                TaskConclusionFormVanilla taskConclusionForm = new TaskConclusionFormVanilla(this);
                 taskConclusionForm.Show();
             }
             else
@@ -182,14 +191,15 @@ namespace EFGHIJ
                 // Do final visual score update
                 if (jndInterface.getVDiff() < previousVDiff) // Won last trial
                 {
-                    Score += 100.0; // Add 100 score
+                    Score += 100.0 + (50 * Streak); // Add 100 score + Streak bonus
                 }
                 else // Lost last trial
                 {
-                    Score -= 100.0; // Remove 100 score
+                    Score -= 100.0 - (50 * Streak); // Remove 100 score + Streak bonus (Negative multiplier)
                 }
                 updateScoreLabel(); // Update the score visually
-                TaskConclusionForm taskConclusionForm = new TaskConclusionForm(this);
+                updateScoreboardDGV(); // Update the scoreboard
+                TaskConclusionFormVanilla taskConclusionForm = new TaskConclusionFormVanilla(this);
                 taskConclusionForm.Show();
             }
             else
@@ -225,6 +235,15 @@ namespace EFGHIJ
         private void updateStreakLabel()
         {
             GamifiedStreakTitle.Text = "Streak: " + Streak.ToString(); // Update streak label
+        }
+        private void updateTrialLabel()
+        {
+            GamifiedTaskNumberTitle.Text = "Trial: " + trialNumber.ToString(); // Update trial number label
+        }
+        private void updateScoreboardDGV()
+        {
+            scoreBoard.updateScoreValue(Score); // Update the scoreboard with the initial score
+            ScoreLeaderboardDGV.DataSource = scoreBoard.GetScoreboardForDGV(); // Set the data source of the form's DGV to the scoreboard (update it)
         }
     }
 }

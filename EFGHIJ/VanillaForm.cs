@@ -94,7 +94,7 @@ namespace EFGHIJ
             // Check if 6 reversals have occured, and if so, conclude this game (In gamified, include pin/visual logic by checking if a reversal has just occured)
             if (reversalNumber == 6)
             {
-                TaskConclusionForm taskConclusionForm = new TaskConclusionForm(this);
+                TaskConclusionFormVanilla taskConclusionForm = new TaskConclusionFormVanilla(this);
                 taskConclusionForm.Show();
             }
             else
@@ -114,7 +114,7 @@ namespace EFGHIJ
             // Check if 6 reversals have occured, and if so, conclude this game (In gamified, include pin/visual logic by checking if a reversal has just occured)
             if (reversalNumber == 6)
             {
-                TaskConclusionForm taskConclusionForm = new TaskConclusionForm(this);
+                TaskConclusionFormVanilla taskConclusionForm = new TaskConclusionFormVanilla(this);
                 taskConclusionForm.Show();
             }
             else

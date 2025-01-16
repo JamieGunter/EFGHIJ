@@ -10,10 +10,10 @@ using System.Windows.Forms;
 
 namespace EFGHIJ
 {
-    public partial class TaskConclusionForm : Form
+    public partial class TaskConclusionFormVanilla : Form
     {
         private Form parentForm;
-        public TaskConclusionForm(Form iParentForm)
+        public TaskConclusionFormVanilla(Form iParentForm)
         {
             InitializeComponent();
             parentForm = iParentForm;

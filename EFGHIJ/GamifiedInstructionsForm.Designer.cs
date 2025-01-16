@@ -34,11 +34,15 @@
             this.GamifiedTitleLabel = new System.Windows.Forms.Label();
             this.instructionLabel = new System.Windows.Forms.Label();
             this.beginTaskButton = new System.Windows.Forms.Button();
+            this.initialsTextBox = new System.Windows.Forms.TextBox();
+            this.InitialsInstructionLabel = new System.Windows.Forms.Label();
             this.taskInitiatorGridBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // taskInitiatorGridBox
             // 
+            this.taskInitiatorGridBox.Controls.Add(this.InitialsInstructionLabel);
+            this.taskInitiatorGridBox.Controls.Add(this.initialsTextBox);
             this.taskInitiatorGridBox.Controls.Add(this.GamifiedSubheadingLabel);
             this.taskInitiatorGridBox.Controls.Add(this.GamifiedTitleLabel);
             this.taskInitiatorGridBox.Controls.Add(this.instructionLabel);
@@ -76,23 +80,42 @@
             // instructionLabel
             // 
             this.instructionLabel.AutoSize = true;
-            this.instructionLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.instructionLabel.Location = new System.Drawing.Point(83, 93);
+            this.instructionLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.instructionLabel.Location = new System.Drawing.Point(6, 96);
             this.instructionLabel.Name = "instructionLabel";
-            this.instructionLabel.Size = new System.Drawing.Size(637, 280);
+            this.instructionLabel.Size = new System.Drawing.Size(574, 238);
             this.instructionLabel.TabIndex = 1;
             this.instructionLabel.Text = resources.GetString("instructionLabel.Text");
-            this.instructionLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.instructionLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // beginTaskButton
             // 
-            this.beginTaskButton.Location = new System.Drawing.Point(295, 379);
+            this.beginTaskButton.Location = new System.Drawing.Point(584, 379);
             this.beginTaskButton.Name = "beginTaskButton";
             this.beginTaskButton.Size = new System.Drawing.Size(212, 67);
             this.beginTaskButton.TabIndex = 0;
             this.beginTaskButton.Text = "Begin";
             this.beginTaskButton.UseVisualStyleBackColor = true;
             this.beginTaskButton.Click += new System.EventHandler(this.beginTaskButton_Click);
+            // 
+            // initialsTextBox
+            // 
+            this.initialsTextBox.Location = new System.Drawing.Point(584, 356);
+            this.initialsTextBox.Name = "initialsTextBox";
+            this.initialsTextBox.Size = new System.Drawing.Size(212, 20);
+            this.initialsTextBox.TabIndex = 4;
+            // 
+            // InitialsInstructionLabel
+            // 
+            this.InitialsInstructionLabel.AutoSize = true;
+            this.InitialsInstructionLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.InitialsInstructionLabel.Location = new System.Drawing.Point(563, 285);
+            this.InitialsInstructionLabel.Name = "InitialsInstructionLabel";
+            this.InitialsInstructionLabel.Size = new System.Drawing.Size(239, 68);
+            this.InitialsInstructionLabel.TabIndex = 5;
+            this.InitialsInstructionLabel.Text = "Please input a 3 character\r\n initial set for the scoreboard.\r\nLeaving this blank " +
+    "will result \r\nin 3 random characters being drawn.";
+            this.InitialsInstructionLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // GamifiedInstructionsForm
             // 
@@ -115,5 +138,7 @@
         private System.Windows.Forms.Label GamifiedTitleLabel;
         private System.Windows.Forms.Label instructionLabel;
         private System.Windows.Forms.Button beginTaskButton;
+        private System.Windows.Forms.Label InitialsInstructionLabel;
+        private System.Windows.Forms.TextBox initialsTextBox;
     }
 }

@@ -98,6 +98,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ScoreboardInterface.cs" />
     <Compile Include="GamifiedForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -115,11 +116,17 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="TaskConclusionForm.cs">
+    <Compile Include="TaskConclusionFormGamified.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="TaskConclusionForm.Designer.cs">
-      <DependentUpon>TaskConclusionForm.cs</DependentUpon>
+    <Compile Include="TaskConclusionFormGamified.Designer.cs">
+      <DependentUpon>TaskConclusionFormGamified.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TaskConclusionFormVanilla.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TaskConclusionFormVanilla.Designer.cs">
+      <DependentUpon>TaskConclusionFormVanilla.cs</DependentUpon>
     </Compile>
     <Compile Include="JNDInterface.cs" />
     <Compile Include="ControllerInterface.cs" />
@@ -148,6 +155,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GamifiedInstructionsForm.resx">
       <DependentUpon>GamifiedInstructionsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TaskConclusionFormGamified.resx">
+      <DependentUpon>TaskConclusionFormGamified.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="VanillaForm.resx">
       <DependentUpon>VanillaForm.cs</DependentUpon>
