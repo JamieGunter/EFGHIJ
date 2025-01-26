@@ -20,6 +20,8 @@ namespace EFGHIJ
         private int V1; // Record V1 value in variable
         private int V2; // Record V2 value in variable 
         private int boundaryNumber = 0; // Times the boundary numbers have been hit
+        private int timeRemaining = 3; // Time remaining (3 second default)
+        private System.Windows.Forms.Timer timeOutTimer; // Initialise Time-Out timer
         public VanillaForm(int VersionNumber)
         {
             jndInterface = new JNDInterface(true, VersionNumber); // Initialise JND interface
@@ -31,11 +33,40 @@ namespace EFGHIJ
             vanillaInstructionsForm.ShowDialog(); // Ensure users cannot interact with components while the instructions form exists
             getOriginalStimuliButton.Enabled = false;
             getNewStimuliButton.Enabled = false;
+            timeOutTimer = new System.Windows.Forms.Timer(); // Initialise the Time-Out timer
+            timeOutTimer.Interval = 1000; // Make the interval 1 second long
+            timeOutTimer.Tick += timeOutTimerTick; // Event handler for timeout timer ticks
             createNextTrial(true);
         }
         private void vanillaInstructionsFormClosed(object sender, FormClosedEventArgs e) // Event handler to re-enable listener when instrunctions form is closed
         {
             controllerInterface.EnableListener();
+        }
+        private void timeOutTimerTick(object sender, EventArgs e)
+        {
+            timeRemaining--; // Decrement time remaining
+            if (timeRemaining <= 0) // Handle a timeout
+            {
+                timeOutTimer.Stop(); // Stop the timer
+                disableAllButtons(); // Disable all buttons so user cannot input multiple commands (Just in case of noise/multiple successive inputs)
+                controllerInterface.DisableListener(); // Disable listener so user cannot input multiple commands (via controller)
+                V2 = jndInterface.userTimeOut(); // Call timeout handler in JND Interface object
+                boundaryNumber = jndInterface.getBoundsNumber();
+                if (boundaryNumber == 3) // Check if boundary limit has been hit
+                {
+                    TaskConclusionFormVanilla taskConclusionForm = new TaskConclusionFormVanilla(this);
+                    taskConclusionForm.Show();
+                }
+                else
+                {
+                    // Create next trial if game has not concluded
+                    createNextTrial(false);
+                }
+            }
+            else
+            {
+                timeRemainingValueLabel.Text = timeRemaining.ToString(); // Update the time remaining label
+            }
         }
         public async void createNextTrial(bool firstRun) // Create the next trial
         {
@@ -62,11 +93,14 @@ namespace EFGHIJ
             getNewStimuliButton.BackColor = Color.LightGray; // Change back to white to signify no longer showing stimuli
             enableAllButtons(); // Enable all buttons so user can input again
             controllerInterface.EnableListener(); // Enable listener so user can input again (via controller)
+            timeRemaining = 3; // Reset time back to 3 seconds
+            timeRemainingValueLabel.Text = timeRemaining.ToString(); // Update time remaining label
+            timeOutTimer.Start(); // Start the timer again
         }
         private async void getOriginalStimuliButton_Click(object sender, EventArgs e)
         {
-            disableAllButtons(); // Disable all buttons so user cannot input multiple commands
             controllerInterface.DisableListener(); // Disable listener so user cannot input multiple commands (via controller)
+            disableAllButtons(); // Disable all buttons so user cannot input multiple commands
             controllerInterface.SetVibration(V1, V1); // Vibrate at V1 value
             getOriginalStimuliButton.BackColor = Color.Green; // Change to green to signify showing stimuli
             await Task.Delay(2000); // Allow vibration for 2 seconds
@@ -77,8 +111,8 @@ namespace EFGHIJ
         }
         private async void getNewStimuliButton_Click(object sender, EventArgs e)
         {
-            disableAllButtons(); // Disable all buttons so user cannot input multiple commands
             controllerInterface.DisableListener(); // Disable listener so user cannot input multiple commands (via controller)
+            disableAllButtons(); // Disable all buttons so user cannot input multiple commands
             controllerInterface.SetVibration(V2, V2); // Vibrate at V2 value
             getNewStimuliButton.BackColor = Color.Green; // Change to green to signify showing stimuli
             await Task.Delay(2000); // Allow vibration for 2 seconds
@@ -89,8 +123,8 @@ namespace EFGHIJ
         }
         private void V2IsLowerButton_Click(object sender, EventArgs e)
         {
-            disableAllButtons(); // Disable all buttons so user cannot input multiple commands (Just in case of noise/multiple successive inputs)
             controllerInterface.DisableListener(); // Disable listener so user cannot input multiple commands (via controller)
+            disableAllButtons(); // Disable all buttons so user cannot input multiple commands (Just in case of noise/multiple successive inputs)
             // Check if user is correct and if reversal occurs (User input is that V2 is lower than V1), then get new V2 value
             V2 = jndInterface.checkReversalAndCalculateVDiff(true);
             // Update revesal number to check if reversal has occured
@@ -116,8 +150,8 @@ namespace EFGHIJ
         }
         private void V2IsNotLowerButton_Click(object sender, EventArgs e)
         {
-            disableAllButtons(); // Disable all buttons so user cannot input multiple commands (Just in case of noise/multiple successive inputs)
             controllerInterface.DisableListener(); // Disable listener so user cannot input multiple commands (via controller)
+            disableAllButtons(); // Disable all buttons so user cannot input multiple commands (Just in case of noise/multiple successive inputs)
             // Check if user is correct and if reversal occurs (User input is that V2 is higher than V1), then get new V2 value
             V2 = jndInterface.checkReversalAndCalculateVDiff(false);
             // Update revesal number to check if reversal has occured
@@ -145,17 +179,18 @@ namespace EFGHIJ
         {
             foreach (Control interactableElement in this.Controls)
             {
-                if ((interactableElement.AccessibleName?.Equals(V2IsLowerButton) ?? false)|| (interactableElement.AccessibleName?.Equals(V2IsNotLowerButton) ?? false))
+                if (interactableElement is Button)
                 {
                     interactableElement.Enabled = false;
                 }
             }
+            timeOutTimer.Stop(); // Stop the timer
         }
         private void enableAllButtons() // Enable all buttons
         {
             foreach (Control interactableElement in this.Controls)
             {
-                if ((interactableElement.AccessibleName?.Equals(V2IsLowerButton) ?? false) || (interactableElement.AccessibleName?.Equals(V2IsNotLowerButton) ?? false))
+                if (interactableElement is Button)
                 {
                     interactableElement.Enabled = true;
                 }

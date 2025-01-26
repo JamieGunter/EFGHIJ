@@ -36,6 +36,8 @@
             this.VanillaTaskNumberTitle = new System.Windows.Forms.Label();
             this.VanillaRightDpadGlyphImage = new System.Windows.Forms.PictureBox();
             this.VanillaLeftDpadGlyphImage = new System.Windows.Forms.PictureBox();
+            this.timeRemainingLabel = new System.Windows.Forms.Label();
+            this.timeRemainingValueLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.VanillaRightDpadGlyphImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.VanillaLeftDpadGlyphImage)).BeginInit();
             this.SuspendLayout();
@@ -124,11 +126,35 @@
             this.VanillaLeftDpadGlyphImage.TabIndex = 9;
             this.VanillaLeftDpadGlyphImage.TabStop = false;
             // 
+            // timeRemainingLabel
+            // 
+            this.timeRemainingLabel.AutoSize = true;
+            this.timeRemainingLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.timeRemainingLabel.Location = new System.Drawing.Point(332, 281);
+            this.timeRemainingLabel.Name = "timeRemainingLabel";
+            this.timeRemainingLabel.Size = new System.Drawing.Size(137, 20);
+            this.timeRemainingLabel.TabIndex = 11;
+            this.timeRemainingLabel.Text = "Time Remaining";
+            this.timeRemainingLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // timeRemainingValueLabel
+            // 
+            this.timeRemainingValueLabel.AutoSize = true;
+            this.timeRemainingValueLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F);
+            this.timeRemainingValueLabel.Location = new System.Drawing.Point(379, 310);
+            this.timeRemainingValueLabel.Name = "timeRemainingValueLabel";
+            this.timeRemainingValueLabel.Size = new System.Drawing.Size(42, 46);
+            this.timeRemainingValueLabel.TabIndex = 12;
+            this.timeRemainingValueLabel.Text = "3";
+            this.timeRemainingValueLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // VanillaForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.timeRemainingValueLabel);
+            this.Controls.Add(this.timeRemainingLabel);
             this.Controls.Add(this.VanillaRightDpadGlyphImage);
             this.Controls.Add(this.VanillaLeftDpadGlyphImage);
             this.Controls.Add(this.VanillaTaskNumberTitle);
@@ -156,5 +182,7 @@
         private System.Windows.Forms.Label VanillaTaskNumberTitle;
         private System.Windows.Forms.PictureBox VanillaLeftDpadGlyphImage;
         private System.Windows.Forms.PictureBox VanillaRightDpadGlyphImage;
+        private System.Windows.Forms.Label timeRemainingLabel;
+        private System.Windows.Forms.Label timeRemainingValueLabel;
     }
 }

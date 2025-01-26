@@ -44,6 +44,18 @@ namespace EFGHIJ
             generateStimuliValues(); // Initialise V1 and generate V2 value
             initialiseSaving(); // Initialise saving (and create a new contestent spreadsheet)
         }
+        public int userTimeOut() // If the user exceeds the 3 second timer, count as incorrect but do not consider reversal logic
+        {
+            // Record current state (including current temp variables) and write to file
+            recordCurrentState(null, null, false);
+            // Apply incorrect logic to VDiff
+            VDiff = (VDiff + (VDiff * 0.5)) + 0.1; // Move further from V1 by adding 50% of vDiff (if incorrect), then add 0.1%, so if a user hits 0% vDiff, they can rise above 0%
+            // Ensure VDiff cannot go below 0
+            // Side note: Also ensures that consistent correct answers eventually lead to V1 = V2, and therefore mandatory reversal
+            VDiff = Math.Max(0, Math.Min(100, VDiff));
+            // Note: Program acknowledges reversal occurance by checking reversal number after calling this function
+            return generateStimuliValues();
+        }
         public int checkReversalAndCalculateVDiff(bool IsLowerUserInput)
         {
             bool ReversalOccured = false; // Initialised to false, unless proven otherwise later
@@ -91,12 +103,12 @@ namespace EFGHIJ
                 V2 = V1 + (int)(VMax * (VDiff / 100)); // If positive, make V2 higher than V1 by VDiff percentage
             }
             trialNumber++; // Increment trial number
-            int tempV2 = Math.Max(0, Math.Min(VMax, V2)); // Ensure V2 is within bounds of controller (0 and 65535), then return V2
-            if (tempV2 == VMax || tempV2 == 0)
+            V2 = Math.Max(0, Math.Min(VMax, V2)); // Ensure V2 is within bounds of controller (0 and 65535), then return V2
+            if (V2 == VMax || V2 == 0)
             {
                 boundsNumber++; // Increment bounds number if V2 is a boundary value
             }
-            return tempV2; 
+            return V2; 
         }
         private void initialiseSaving()
         {
@@ -140,16 +152,20 @@ namespace EFGHIJ
             GamifiedResults.Cells[1, 9].Value = "totalReversalNumberInclusive";
             GamifiedResults.Cells[1, 10].Value = "boundsNumber";
         }
-        private void recordCurrentState(bool iIsLowerUserInput, bool iUserCorrect, bool iReversalOccured) // Records current state and writes to file for data analysis
+        private void recordCurrentState(bool? iIsLowerUserInput, bool? iUserCorrect, bool iReversalOccured) // Records current state and writes to file for data analysis
         {
             string IsLowerUserInputString;
-            if (iIsLowerUserInput) // Convert the user input boolean into readable string for saving
+            if (iIsLowerUserInput == true) // Convert the user input boolean into readable string for saving
             {
                 IsLowerUserInputString = "Lower";
             }
-            else
+            else if (iIsLowerUserInput == false)
             {
                 IsLowerUserInputString = "Higher";
+            }
+            else
+            {
+                IsLowerUserInputString = "TimeOut";
             }
             using (ExcelPackage package = new ExcelPackage(new FileInfo(filePath)))
             {

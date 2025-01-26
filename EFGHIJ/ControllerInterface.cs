@@ -108,17 +108,17 @@ namespace EFGHIJ
         }
         public void EnableListener() // Allows external classes to enable the listener by making threadBusy false
         {
+            clearInputBuffer(); // Clears any buffered input received whilst the thread was busy
             lock (variableLock)
             {
-                threadBusy = false; // Flag that thread is busy
+                threadBusy = false; // Flag that thread is no-longer busy
             }
-            clearInputBuffer(); // Clears any buffered input received whilst the thread was busy
         }
         public void DisableListener() // Allows external classes to disable the listener by making threadBusy true
         {
             lock (variableLock)
             {
-                threadBusy = true; // Flag that thread is no-longer busy
+                threadBusy = true; // Flag that thread is busy
             }
         }
         private void clearInputBuffer() // Clears any buffered input received whilst the thread was busy
