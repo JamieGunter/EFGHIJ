@@ -14,13 +14,15 @@ namespace EFGHIJ
     public partial class VanillaForm : Form
     {
         private ControllerInterface controllerInterface; // Intialise controller interface
-        private JNDInterface jndInterface = new JNDInterface(true); // Initialise JND interface
+        private JNDInterface jndInterface; // Initialise JND interface
         private int reversalNumber; // Number of reversals, initialised to 0, max 6
         private int trialNumber; // Number of trials
         private int V1; // Record V1 value in variable
         private int V2; // Record V2 value in variable 
-        public VanillaForm()
+        private int boundaryNumber = 0; // Times the boundary numbers have been hit
+        public VanillaForm(int VersionNumber)
         {
+            jndInterface = new JNDInterface(true, VersionNumber); // Initialise JND interface
             InitializeComponent();
             controllerInterface = new ControllerInterface(this); // Create controller instance (listener enabled by default)
             controllerInterface.DisableListener(); // Disable listener while instructions are up
@@ -93,8 +95,15 @@ namespace EFGHIJ
             V2 = jndInterface.checkReversalAndCalculateVDiff(true);
             // Update revesal number to check if reversal has occured
             reversalNumber = jndInterface.getReversalNumber();
+            // Update boundary number to check if boundary limit has been hit
+            boundaryNumber = jndInterface.getBoundsNumber();
             // Check if 6 reversals have occured, and if so, conclude this game (In gamified, include pin/visual logic by checking if a reversal has just occured)
             if (reversalNumber == 6)
+            {
+                TaskConclusionFormVanilla taskConclusionForm = new TaskConclusionFormVanilla(this);
+                taskConclusionForm.Show();
+            }
+            else if (boundaryNumber == 3)
             {
                 TaskConclusionFormVanilla taskConclusionForm = new TaskConclusionFormVanilla(this);
                 taskConclusionForm.Show();
@@ -113,8 +122,15 @@ namespace EFGHIJ
             V2 = jndInterface.checkReversalAndCalculateVDiff(false);
             // Update revesal number to check if reversal has occured
             reversalNumber = jndInterface.getReversalNumber();
+            // Update boundary number to check if boundary limit has been hit
+            boundaryNumber = jndInterface.getBoundsNumber();
             // Check if 6 reversals have occured, and if so, conclude this game (In gamified, include pin/visual logic by checking if a reversal has just occured)
             if (reversalNumber == 6)
+            {
+                TaskConclusionFormVanilla taskConclusionForm = new TaskConclusionFormVanilla(this);
+                taskConclusionForm.Show();
+            }
+            else if (boundaryNumber == 3)
             {
                 TaskConclusionFormVanilla taskConclusionForm = new TaskConclusionFormVanilla(this);
                 taskConclusionForm.Show();

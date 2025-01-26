@@ -14,7 +14,7 @@ namespace EFGHIJ
     public partial class GamifiedForm : Form
     {
         private ControllerInterface controllerInterface; // Intialise controller interface
-        private JNDInterface jndInterface = new JNDInterface(false); // Initialise JND interface
+        private JNDInterface jndInterface = new JNDInterface(false, -1); // Initialise JND interface
         private int reversalNumber; // Number of reversals, initialised to 0, max 6
         private int trialNumber; // Number of trials
         private int V1; // Record V1 value in variable

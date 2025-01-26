@@ -28,37 +28,49 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.gamifiedButton = new System.Windows.Forms.Button();
-            this.vanillaButton = new System.Windows.Forms.Button();
+            this.vanillaButtonVersion1 = new System.Windows.Forms.Button();
+            this.vanillaButtonVersion2 = new System.Windows.Forms.Button();
+            this.vanillaButtonVersion3 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // gamifiedButton
+            // vanillaButtonVersion1
             // 
-            this.gamifiedButton.Location = new System.Drawing.Point(118, 155);
-            this.gamifiedButton.Name = "gamifiedButton";
-            this.gamifiedButton.Size = new System.Drawing.Size(200, 116);
-            this.gamifiedButton.TabIndex = 0;
-            this.gamifiedButton.Text = "Gamified User Interface";
-            this.gamifiedButton.UseVisualStyleBackColor = true;
-            this.gamifiedButton.Click += new System.EventHandler(this.gamifiedButton_Click);
+            this.vanillaButtonVersion1.Location = new System.Drawing.Point(81, 147);
+            this.vanillaButtonVersion1.Name = "vanillaButtonVersion1";
+            this.vanillaButtonVersion1.Size = new System.Drawing.Size(200, 116);
+            this.vanillaButtonVersion1.TabIndex = 1;
+            this.vanillaButtonVersion1.Text = "[Version 1] Vanilla User Interface";
+            this.vanillaButtonVersion1.UseVisualStyleBackColor = true;
+            this.vanillaButtonVersion1.Click += new System.EventHandler(this.vanillaButtonVersion1_Click_1);
             // 
-            // vanillaButton
+            // vanillaButtonVersion2
             // 
-            this.vanillaButton.Location = new System.Drawing.Point(478, 155);
-            this.vanillaButton.Name = "vanillaButton";
-            this.vanillaButton.Size = new System.Drawing.Size(200, 116);
-            this.vanillaButton.TabIndex = 1;
-            this.vanillaButton.Text = "Vanilla User Interface";
-            this.vanillaButton.UseVisualStyleBackColor = true;
-            this.vanillaButton.Click += new System.EventHandler(this.vanillaButton_Click_1);
+            this.vanillaButtonVersion2.Location = new System.Drawing.Point(308, 147);
+            this.vanillaButtonVersion2.Name = "vanillaButtonVersion2";
+            this.vanillaButtonVersion2.Size = new System.Drawing.Size(200, 116);
+            this.vanillaButtonVersion2.TabIndex = 2;
+            this.vanillaButtonVersion2.Text = "[Version 2] Vanilla User Interface";
+            this.vanillaButtonVersion2.UseVisualStyleBackColor = true;
+            this.vanillaButtonVersion2.Click += new System.EventHandler(this.vanillaButtonVersion2_Click);
+            // 
+            // vanillaButtonVersion3
+            // 
+            this.vanillaButtonVersion3.Location = new System.Drawing.Point(536, 147);
+            this.vanillaButtonVersion3.Name = "vanillaButtonVersion3";
+            this.vanillaButtonVersion3.Size = new System.Drawing.Size(200, 116);
+            this.vanillaButtonVersion3.TabIndex = 3;
+            this.vanillaButtonVersion3.Text = "[Version 3] Vanilla User Interface";
+            this.vanillaButtonVersion3.UseVisualStyleBackColor = true;
+            this.vanillaButtonVersion3.Click += new System.EventHandler(this.vanillaButtonVersion3_Click);
             // 
             // userInterfaceSelectForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.vanillaButton);
-            this.Controls.Add(this.gamifiedButton);
+            this.Controls.Add(this.vanillaButtonVersion3);
+            this.Controls.Add(this.vanillaButtonVersion2);
+            this.Controls.Add(this.vanillaButtonVersion1);
             this.Name = "userInterfaceSelectForm";
             this.Text = "User Interface Select";
             this.ResumeLayout(false);
@@ -66,8 +78,8 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Button gamifiedButton;
-        private System.Windows.Forms.Button vanillaButton;
+        private System.Windows.Forms.Button vanillaButtonVersion1;
+        private System.Windows.Forms.Button vanillaButtonVersion2;
+        private System.Windows.Forms.Button vanillaButtonVersion3;
     }
 }

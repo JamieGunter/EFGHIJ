@@ -10,22 +10,37 @@ namespace EFGHIJ
 {
     internal class JNDInterface
     {
+        private const int VMax = 65535; // Constant for maximum vibration value of each motor
+        private int versionNumber; // Version number of the JND interface
         private int reversalNumber = 0; // Number of reversals, initialised to 0, max 6
         private int trialNumber = 0; // Number of trials
-        private int? V1 = 32767; // Permanent initial reference stimuli or "V1", default 32767 or 50% ("?" notation so can be nullable for assignment possibility)
+        private int V1; // Permanent initial reference stimuli or "V1", assigned at initialisation
         private int V2; // Compared stimuli value or "V2"
         private double VDiff = 20.0; // Difference (as percentage) between V1 and V2, default 20% of maximum (65535)
-        private double VDiffMutator = 0.5; // Mutator value for percentage difference, default 0.5% of maximum (65535)
         private bool? lastResponseWasCorrect = null; // Previous user input state tracker for reversal detection (nullable for first run having no previous result)
         private bool isVanilla; // Flag for if it is vanilla trial (saving purposes)
         private string filePath; // Variable for the path to excel sheet(s)
         private int contestantNumber; // Current contestant number (for speadsheet)
+        private int boundsNumber = 0; // Number of bounds (either vDiff Max or 0) the user hits, 3 results in trial conclusion
         private Random randomGen = new Random(); // Generate random number for V1 initialisation (and V2 sign)
 
-        public JNDInterface(bool iIsVanilla) // Constructor of JND Interface
+        public JNDInterface(bool iIsVanilla, int iVersionNumber) // Constructor of JND Interface
         {
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial; // Set EPPlus license to non-commercial
             isVanilla = iIsVanilla; // Set vanilla flag
+            versionNumber = iVersionNumber;
+            switch (versionNumber) // Switch the version number and thus the initial V1 value
+            {
+                case 1:
+                    V1 = VMax / 4; // Set V1 to 25% of maximum
+                    break;
+                case 2:
+                    V1 = VMax / 2; // Set V1 to 50% of maximum
+                    break;
+                case 3:
+                    V1 = (int)(VMax * 0.75); // Set V1 to 75% of maximum
+                    break;
+            }
             generateStimuliValues(); // Initialise V1 and generate V2 value
             initialiseSaving(); // Initialise saving (and create a new contestent spreadsheet)
         }
@@ -51,37 +66,37 @@ namespace EFGHIJ
             // Calculate new VDiff value
             if (UserCorrect) // If user is correct
             {
-                VDiff = VDiff - VDiffMutator; // Move closer towards V1
+                VDiff = (VDiff / 2) - 0.1; // Move closer towards V1 by halving difference (if correct), then subtract 0.1% so the user can reach 0% vDiff (flat mutation value) and get a reversal
             }
             else // If the user is incorrect
             {
-                VDiff = VDiff + VDiffMutator; // Move further from V1
+                VDiff = (VDiff + (VDiff * 0.5)) + 0.1; // Move further from V1 by adding 50% of vDiff (if incorrect), then add 0.1%, so if a user hits 0% vDiff, they can rise above 0%
             }
-            // Ensure VDiff cannot go below 0 (occurs if VDiffMutator is changed to less "round" number)
+            // Ensure VDiff cannot go below 0
             // Side note: Also ensures that consistent correct answers eventually lead to V1 = V2, and therefore mandatory reversal
-            VDiff = Math.Max(0, VDiff);
+            VDiff = Math.Max(0, Math.Min(100, VDiff));
             // Note: Program acknowledges reversal occurance by checking reversal number after calling this function
             return generateStimuliValues();
         }
         private int generateStimuliValues() // Initialise V1 and generate V2 value (return value for potential design choice)
         {
-            // If V1 unassigned (By removing initialise value above)
-            if (V1 == null)
-            {
-                V1 = randomGen.Next(13762, 51773); // Generate random value for V1 (between 21% and 79% of maximum)
-            }
             // Generate sign for V2
             int v2IsNegative = randomGen.Next(0,2); // Randomly check if V2 will be negative or positive
             if (v2IsNegative == 1)
             {
-                V2 = V1.Value - (int)(V1.Value * (VDiff / 100)); // If negative, make V2 lower than V1 by VDiff percentage
+                V2 = V1 - (int)(VMax * (VDiff / 100)); // If negative, make V2 lower than V1 by VDiff percentage
             }
             else
             {
-                V2 = V1.Value + (int)(V1.Value * (VDiff / 100)); // If positive, make V2 higher than V1 by VDiff percentage
+                V2 = V1 + (int)(VMax * (VDiff / 100)); // If positive, make V2 higher than V1 by VDiff percentage
             }
             trialNumber++; // Increment trial number
-            return Math.Max(0, Math.Min(65535, V2)); // Ensure V2 is within bounds of controller (0 and 65535), then return V2
+            int tempV2 = Math.Max(0, Math.Min(VMax, V2)); // Ensure V2 is within bounds of controller (0 and 65535), then return V2
+            if (tempV2 == VMax || tempV2 == 0)
+            {
+                boundsNumber++; // Increment bounds number if V2 is a boundary value
+            }
+            return tempV2; 
         }
         private void initialiseSaving()
         {
@@ -113,17 +128,17 @@ namespace EFGHIJ
         private void makeNewContestantWorksheet(ExcelPackage iPackage)
         {
             contestantNumber = iPackage.Workbook.Worksheets.Count + 1;
-            ExcelWorksheet GamifiedResults = iPackage.Workbook.Worksheets.Add($"Contestant{contestantNumber}");
+            ExcelWorksheet GamifiedResults = iPackage.Workbook.Worksheets.Add($"Contestant{contestantNumber}Version{versionNumber}");
             GamifiedResults.Cells[1, 1].Value = "trialNumber";
             GamifiedResults.Cells[1, 2].Value = "v1Value";
             GamifiedResults.Cells[1, 3].Value = "v2Value";
             GamifiedResults.Cells[1, 4].Value = "vDiffValue";
-            GamifiedResults.Cells[1, 5].Value = "vDiffMutatorValue";
-            GamifiedResults.Cells[1, 6].Value = "userInput";
-            GamifiedResults.Cells[1, 7].Value = "isInputCorrect";
-            GamifiedResults.Cells[1, 8].Value = "isLastResponseCorrect";
-            GamifiedResults.Cells[1, 9].Value = "isReversal";
-            GamifiedResults.Cells[1, 10].Value = "totalReversalNumberInclusive";
+            GamifiedResults.Cells[1, 5].Value = "userInput";
+            GamifiedResults.Cells[1, 6].Value = "isInputCorrect";
+            GamifiedResults.Cells[1, 7].Value = "isLastResponseCorrect";
+            GamifiedResults.Cells[1, 8].Value = "isReversal";
+            GamifiedResults.Cells[1, 9].Value = "totalReversalNumberInclusive";
+            GamifiedResults.Cells[1, 10].Value = "boundsNumber";
         }
         private void recordCurrentState(bool iIsLowerUserInput, bool iUserCorrect, bool iReversalOccured) // Records current state and writes to file for data analysis
         {
@@ -144,12 +159,12 @@ namespace EFGHIJ
                 currentContestant.Cells[currentNewRow, 2].Value = V1;
                 currentContestant.Cells[currentNewRow, 3].Value = V2;
                 currentContestant.Cells[currentNewRow, 4].Value = VDiff;
-                currentContestant.Cells[currentNewRow, 5].Value = VDiffMutator;
-                currentContestant.Cells[currentNewRow, 6].Value = IsLowerUserInputString;
-                currentContestant.Cells[currentNewRow, 7].Value = iUserCorrect;
-                currentContestant.Cells[currentNewRow, 8].Value = lastResponseWasCorrect;
-                currentContestant.Cells[currentNewRow, 9].Value = iReversalOccured;
-                currentContestant.Cells[currentNewRow, 10].Value = reversalNumber;
+                currentContestant.Cells[currentNewRow, 5].Value = IsLowerUserInputString;
+                currentContestant.Cells[currentNewRow, 6].Value = iUserCorrect;
+                currentContestant.Cells[currentNewRow, 7].Value = lastResponseWasCorrect;
+                currentContestant.Cells[currentNewRow, 8].Value = iReversalOccured;
+                currentContestant.Cells[currentNewRow, 9].Value = reversalNumber;
+                currentContestant.Cells[currentNewRow, 10].Value = boundsNumber;
                 package.Save(); // Save the file to the filepath
             }
         }
@@ -163,7 +178,7 @@ namespace EFGHIJ
         }
         public int getV1Value() // Get V1 value (for reference to user)
         {
-            return V1.Value;
+            return V1;
         }
         public int getV2Value() // Get V2 value (for reference to user)
         {
@@ -172,6 +187,10 @@ namespace EFGHIJ
         public double getVDiff() // Get VDiff value (to calculate score in gamified verison)
         {
             return VDiff;
+        }
+        public int getBoundsNumber() // Get Bound number (to calculate if user has exceeded boundary limit)
+        {
+            return boundsNumber;
         }
     }
 }
