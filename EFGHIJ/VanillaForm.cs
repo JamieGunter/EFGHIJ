@@ -27,6 +27,8 @@ namespace EFGHIJ
             VanillaInstructionsForm vanillaInstructionsForm = new VanillaInstructionsForm(); // Create the instructions form
             vanillaInstructionsForm.FormClosed += new FormClosedEventHandler(vanillaInstructionsFormClosed); // Add event handler to re-enable listener when instructions form is closed
             vanillaInstructionsForm.ShowDialog(); // Ensure users cannot interact with components while the instructions form exists
+            getOriginalStimuliButton.Enabled = false;
+            getNewStimuliButton.Enabled = false;
             createNextTrial(true);
         }
         private void vanillaInstructionsFormClosed(object sender, FormClosedEventArgs e) // Event handler to re-enable listener when instrunctions form is closed
@@ -127,7 +129,7 @@ namespace EFGHIJ
         {
             foreach (Control interactableElement in this.Controls)
             {
-                if (interactableElement is Button)
+                if ((interactableElement.AccessibleName?.Equals(V2IsLowerButton) ?? false)|| (interactableElement.AccessibleName?.Equals(V2IsNotLowerButton) ?? false))
                 {
                     interactableElement.Enabled = false;
                 }
@@ -137,7 +139,7 @@ namespace EFGHIJ
         {
             foreach (Control interactableElement in this.Controls)
             {
-                if (interactableElement is Button)
+                if ((interactableElement.AccessibleName?.Equals(V2IsLowerButton) ?? false) || (interactableElement.AccessibleName?.Equals(V2IsNotLowerButton) ?? false))
                 {
                     interactableElement.Enabled = true;
                 }

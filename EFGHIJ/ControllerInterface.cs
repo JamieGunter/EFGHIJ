@@ -91,14 +91,8 @@ namespace EFGHIJ
                     {
                         switch (directionState.Value)
                         {
-                            case 0: // Up direction (Get original stimulus again) 
-                                clickButton("getOriginalStimuliButton", 2000);
-                                break;
                             case 9000: // Right direction (V2 is higher button)
                                 clickButton("V2IsNotLowerButton", 6000);
-                                break;
-                            case 18000: // Down direction (Get new stimulus again)
-                                clickButton("getNewStimuliButton", 2000);
                                 break;
                             case 27000: // Left direction (V2 is lower button)
                                 clickButton("V2IsLowerButton", 6000);

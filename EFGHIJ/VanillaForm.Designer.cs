@@ -36,12 +36,8 @@
             this.VanillaTaskNumberTitle = new System.Windows.Forms.Label();
             this.VanillaRightDpadGlyphImage = new System.Windows.Forms.PictureBox();
             this.VanillaLeftDpadGlyphImage = new System.Windows.Forms.PictureBox();
-            this.VanillaDownDpadGlyphImage = new System.Windows.Forms.PictureBox();
-            this.VanillaUpDpadGlyphImage = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.VanillaRightDpadGlyphImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.VanillaLeftDpadGlyphImage)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.VanillaDownDpadGlyphImage)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.VanillaUpDpadGlyphImage)).BeginInit();
             this.SuspendLayout();
             // 
             // getOriginalStimuliButton
@@ -50,17 +46,17 @@
             this.getOriginalStimuliButton.Name = "getOriginalStimuliButton";
             this.getOriginalStimuliButton.Size = new System.Drawing.Size(149, 63);
             this.getOriginalStimuliButton.TabIndex = 0;
-            this.getOriginalStimuliButton.Text = "Get Original Stimuli Reference (V1)";
+            this.getOriginalStimuliButton.Text = "Original Stimuli (V1)";
             this.getOriginalStimuliButton.UseVisualStyleBackColor = true;
             this.getOriginalStimuliButton.Click += new System.EventHandler(this.getOriginalStimuliButton_Click);
             // 
             // getNewStimuliButton
             // 
-            this.getNewStimuliButton.Location = new System.Drawing.Point(639, 96);
+            this.getNewStimuliButton.Location = new System.Drawing.Point(639, 81);
             this.getNewStimuliButton.Name = "getNewStimuliButton";
             this.getNewStimuliButton.Size = new System.Drawing.Size(149, 63);
             this.getNewStimuliButton.TabIndex = 1;
-            this.getNewStimuliButton.Text = "Get New Stimuli Reference (V2)";
+            this.getNewStimuliButton.Text = "New Stimuli (V2)";
             this.getNewStimuliButton.UseVisualStyleBackColor = true;
             this.getNewStimuliButton.Click += new System.EventHandler(this.getNewStimuliButton_Click);
             // 
@@ -128,28 +124,6 @@
             this.VanillaLeftDpadGlyphImage.TabIndex = 9;
             this.VanillaLeftDpadGlyphImage.TabStop = false;
             // 
-            // VanillaDownDpadGlyphImage
-            // 
-            this.VanillaDownDpadGlyphImage.BackColor = System.Drawing.Color.Transparent;
-            this.VanillaDownDpadGlyphImage.Image = global::EFGHIJ.Properties.Resources.DownGlyphDPadGlyphMap;
-            this.VanillaDownDpadGlyphImage.Location = new System.Drawing.Point(570, 96);
-            this.VanillaDownDpadGlyphImage.Name = "VanillaDownDpadGlyphImage";
-            this.VanillaDownDpadGlyphImage.Size = new System.Drawing.Size(63, 63);
-            this.VanillaDownDpadGlyphImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.VanillaDownDpadGlyphImage.TabIndex = 8;
-            this.VanillaDownDpadGlyphImage.TabStop = false;
-            // 
-            // VanillaUpDpadGlyphImage
-            // 
-            this.VanillaUpDpadGlyphImage.BackColor = System.Drawing.Color.Transparent;
-            this.VanillaUpDpadGlyphImage.Image = global::EFGHIJ.Properties.Resources.UpGlyphDPadGlyphMap;
-            this.VanillaUpDpadGlyphImage.Location = new System.Drawing.Point(570, 12);
-            this.VanillaUpDpadGlyphImage.Name = "VanillaUpDpadGlyphImage";
-            this.VanillaUpDpadGlyphImage.Size = new System.Drawing.Size(63, 63);
-            this.VanillaUpDpadGlyphImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.VanillaUpDpadGlyphImage.TabIndex = 7;
-            this.VanillaUpDpadGlyphImage.TabStop = false;
-            // 
             // VanillaForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -157,8 +131,6 @@
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.VanillaRightDpadGlyphImage);
             this.Controls.Add(this.VanillaLeftDpadGlyphImage);
-            this.Controls.Add(this.VanillaDownDpadGlyphImage);
-            this.Controls.Add(this.VanillaUpDpadGlyphImage);
             this.Controls.Add(this.VanillaTaskNumberTitle);
             this.Controls.Add(this.trialNumberLabel);
             this.Controls.Add(this.V2IsNotLowerButton);
@@ -169,8 +141,6 @@
             this.Text = "Vanilla Interface";
             ((System.ComponentModel.ISupportInitialize)(this.VanillaRightDpadGlyphImage)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.VanillaLeftDpadGlyphImage)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.VanillaDownDpadGlyphImage)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.VanillaUpDpadGlyphImage)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -184,8 +154,6 @@
         private System.Windows.Forms.Button V2IsNotLowerButton;
         private System.Windows.Forms.Label trialNumberLabel;
         private System.Windows.Forms.Label VanillaTaskNumberTitle;
-        private System.Windows.Forms.PictureBox VanillaUpDpadGlyphImage;
-        private System.Windows.Forms.PictureBox VanillaDownDpadGlyphImage;
         private System.Windows.Forms.PictureBox VanillaLeftDpadGlyphImage;
         private System.Windows.Forms.PictureBox VanillaRightDpadGlyphImage;
     }
