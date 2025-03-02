@@ -37,21 +37,5 @@ namespace EFGHIJ
             vanillaForm.Show();
             this.Hide();
         }
-        private void gamifiedButtonVersion1_Click(object sender, EventArgs e)
-        {
-            GamifiedForm gamifiedForm = new GamifiedForm();
-            gamifiedForm.Show();
-            this.Hide();
-        }
-
-        private void gamifiedButtonVersion2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void gamifiedButtonVersion3_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 }

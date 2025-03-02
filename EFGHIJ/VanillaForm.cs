@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace EFGHIJ
 {
@@ -20,8 +21,9 @@ namespace EFGHIJ
         private int V1; // Record V1 value in variable
         private int V2; // Record V2 value in variable 
         private int boundaryNumber = 0; // Times the boundary numbers have been hit
-        private int timeRemaining = 3; // Time remaining (3 second default)
-        private System.Windows.Forms.Timer timeOutTimer; // Initialise Time-Out timer
+        private double timeRemaining = 3; // Time remaining (3 second default)
+        private Stopwatch stopwatchTimer; // Initialise Stopwatch timer
+        private System.Timers.Timer timeOutTimer; // Initialise Time-Out timer
         public VanillaForm(int VersionNumber)
         {
             jndInterface = new JNDInterface(true, VersionNumber); // Initialise JND interface
@@ -33,9 +35,10 @@ namespace EFGHIJ
             vanillaInstructionsForm.ShowDialog(); // Ensure users cannot interact with components while the instructions form exists
             getOriginalStimuliButton.Enabled = false;
             getNewStimuliButton.Enabled = false;
-            timeOutTimer = new System.Windows.Forms.Timer(); // Initialise the Time-Out timer
-            timeOutTimer.Interval = 1000; // Make the interval 1 second long
-            timeOutTimer.Tick += timeOutTimerTick; // Event handler for timeout timer ticks
+            stopwatchTimer = new Stopwatch();
+            timeOutTimer = new System.Timers.Timer(50); // Initialise the Time-Out timer with 0.05 second interval (for UI)
+            timeOutTimer.Elapsed += timeOutTimerTick; // Event handler for timeout timer ticks
+            timeOutTimer.AutoReset = true;
             createNextTrial(true);
         }
         private void vanillaInstructionsFormClosed(object sender, FormClosedEventArgs e) // Event handler to re-enable listener when instrunctions form is closed
@@ -44,29 +47,34 @@ namespace EFGHIJ
         }
         private void timeOutTimerTick(object sender, EventArgs e)
         {
-            timeRemaining--; // Decrement time remaining
-            if (timeRemaining <= 0) // Handle a timeout
+            Invoke(new Action(() =>
             {
-                timeOutTimer.Stop(); // Stop the timer
-                disableAllButtons(); // Disable all buttons so user cannot input multiple commands (Just in case of noise/multiple successive inputs)
-                controllerInterface.DisableListener(); // Disable listener so user cannot input multiple commands (via controller)
-                V2 = jndInterface.userTimeOut(); // Call timeout handler in JND Interface object
-                boundaryNumber = jndInterface.getBoundsNumber();
-                if (boundaryNumber == 3) // Check if boundary limit has been hit
+                double elapsedTime = stopwatchTimer.Elapsed.TotalSeconds; // Get elapsed time
+                timeRemaining = 3.0 - elapsedTime;
+                if (timeRemaining <= 0) // Handle a timeout
                 {
-                    TaskConclusionFormVanilla taskConclusionForm = new TaskConclusionFormVanilla(this);
-                    taskConclusionForm.Show();
+                    stopwatchTimer.Stop();
+                    timeOutTimer.Stop(); // Stop the timer
+                    disableAllButtons(); // Disable all buttons so user cannot input multiple commands (Just in case of noise/multiple successive inputs)
+                    controllerInterface.DisableListener(); // Disable listener so user cannot input multiple commands (via controller)
+                    V2 = jndInterface.userTimeOut(elapsedTime); // Call timeout handler in JND Interface object
+                    boundaryNumber = jndInterface.getBoundsNumber();
+                    if (boundaryNumber == 3) // Check if boundary limit has been hit
+                    {
+                        TaskConclusionFormVanilla taskConclusionForm = new TaskConclusionFormVanilla(this);
+                        taskConclusionForm.Show();
+                    }
+                    else
+                    {
+                        // Create next trial if game has not concluded
+                        createNextTrial(false);
+                    }
                 }
                 else
                 {
-                    // Create next trial if game has not concluded
-                    createNextTrial(false);
+                    timeRemainingValueLabel.Text = timeRemaining.ToString("F2"); // Update the time remaining label, F2 denotes 2 decimal places
                 }
-            }
-            else
-            {
-                timeRemainingValueLabel.Text = timeRemaining.ToString(); // Update the time remaining label
-            }
+            }));
         }
         public async void createNextTrial(bool firstRun) // Create the next trial
         {
@@ -93,8 +101,9 @@ namespace EFGHIJ
             getNewStimuliButton.BackColor = Color.LightGray; // Change back to white to signify no longer showing stimuli
             enableAllButtons(); // Enable all buttons so user can input again
             controllerInterface.EnableListener(); // Enable listener so user can input again (via controller)
-            timeRemaining = 3; // Reset time back to 3 seconds
-            timeRemainingValueLabel.Text = timeRemaining.ToString(); // Update time remaining label
+            timeRemaining = 3.0; // Reset time back to 3 seconds
+            timeRemainingValueLabel.Text = timeRemaining.ToString("F2"); // Update time remaining label, F2 denotes 2 decimal places
+            stopwatchTimer.Restart(); // Restart the timer
             timeOutTimer.Start(); // Start the timer again
         }
         private async void getOriginalStimuliButton_Click(object sender, EventArgs e)
@@ -123,10 +132,13 @@ namespace EFGHIJ
         }
         private void V2IsLowerButton_Click(object sender, EventArgs e)
         {
+            stopwatchTimer.Stop(); // Stop the stopwatch
+            timeOutTimer.Stop(); // Stop the timer
+            double timeTaken = 3.0 - timeRemaining; // Calculate time taken for response
             controllerInterface.DisableListener(); // Disable listener so user cannot input multiple commands (via controller)
             disableAllButtons(); // Disable all buttons so user cannot input multiple commands (Just in case of noise/multiple successive inputs)
             // Check if user is correct and if reversal occurs (User input is that V2 is lower than V1), then get new V2 value
-            V2 = jndInterface.checkReversalAndCalculateVDiff(true);
+            V2 = jndInterface.checkReversalAndCalculateVDiff(true, timeTaken);
             // Update revesal number to check if reversal has occured
             reversalNumber = jndInterface.getReversalNumber();
             // Update boundary number to check if boundary limit has been hit
@@ -150,10 +162,13 @@ namespace EFGHIJ
         }
         private void V2IsNotLowerButton_Click(object sender, EventArgs e)
         {
+            stopwatchTimer.Stop();
+            timeOutTimer.Stop(); // Stop the timer
+            double timeTaken = 3.0 - timeRemaining; // Calculate time taken for response
             controllerInterface.DisableListener(); // Disable listener so user cannot input multiple commands (via controller)
             disableAllButtons(); // Disable all buttons so user cannot input multiple commands (Just in case of noise/multiple successive inputs)
             // Check if user is correct and if reversal occurs (User input is that V2 is higher than V1), then get new V2 value
-            V2 = jndInterface.checkReversalAndCalculateVDiff(false);
+            V2 = jndInterface.checkReversalAndCalculateVDiff(false, timeTaken);
             // Update revesal number to check if reversal has occured
             reversalNumber = jndInterface.getReversalNumber();
             // Update boundary number to check if boundary limit has been hit

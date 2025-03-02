@@ -18,7 +18,6 @@ namespace EFGHIJ
         private int V2; // Compared stimuli value or "V2"
         private double VDiff = 20.0; // Difference (as percentage) between V1 and V2, default 20% of maximum (65535)
         private bool? lastResponseWasCorrect = null; // Previous user input state tracker for reversal detection (nullable for first run having no previous result)
-        private bool isVanilla; // Flag for if it is vanilla trial (saving purposes)
         private string filePath; // Variable for the path to excel sheet(s)
         private int contestantNumber; // Current contestant number (for speadsheet)
         private int boundsNumber = 0; // Number of bounds (either vDiff Max or 0) the user hits, 3 results in trial conclusion
@@ -27,7 +26,6 @@ namespace EFGHIJ
         public JNDInterface(bool iIsVanilla, int iVersionNumber) // Constructor of JND Interface
         {
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial; // Set EPPlus license to non-commercial
-            isVanilla = iIsVanilla; // Set vanilla flag
             versionNumber = iVersionNumber;
             switch (versionNumber) // Switch the version number and thus the initial V1 value
             {
@@ -44,10 +42,10 @@ namespace EFGHIJ
             generateStimuliValues(); // Initialise V1 and generate V2 value
             initialiseSaving(); // Initialise saving (and create a new contestent spreadsheet)
         }
-        public int userTimeOut() // If the user exceeds the 3 second timer, count as incorrect but do not consider reversal logic
+        public int userTimeOut(double iElapsedTime) // If the user exceeds the 3 second timer, count as incorrect but do not consider reversal logic
         {
             // Record current state (including current temp variables) and write to file
-            recordCurrentState(null, null, false);
+            recordCurrentState(null, null, false, iElapsedTime);
             // Apply incorrect logic to VDiff
             VDiff = (VDiff + (VDiff * 0.5)) + 0.1; // Move further from V1 by adding 50% of vDiff (if incorrect), then add 0.1%, so if a user hits 0% vDiff, they can rise above 0%
             // Ensure VDiff cannot go below 0
@@ -56,7 +54,7 @@ namespace EFGHIJ
             // Note: Program acknowledges reversal occurance by checking reversal number after calling this function
             return generateStimuliValues();
         }
-        public int checkReversalAndCalculateVDiff(bool IsLowerUserInput)
+        public int checkReversalAndCalculateVDiff(bool IsLowerUserInput, double timeTaken)
         {
             bool ReversalOccured = false; // Initialised to false, unless proven otherwise later
             // Check if the user is correct
@@ -72,7 +70,7 @@ namespace EFGHIJ
                 }
             }
             // Record current state (including current temp variables) and write to file
-            recordCurrentState(IsLowerUserInput, UserCorrect, ReversalOccured);
+            recordCurrentState(IsLowerUserInput, UserCorrect, ReversalOccured, timeTaken);
             // Update last response correct state
             lastResponseWasCorrect = UserCorrect;
             // Calculate new VDiff value
@@ -112,14 +110,7 @@ namespace EFGHIJ
         }
         private void initialiseSaving()
         {
-            if (isVanilla)
-            {
-                filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "VanillaTrialResults", "VanillaResults.xlsx"); // Set file path to the Vanilla trial folder
-            }
-            else
-            {
-                filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "GamifiedTrialResults", "GamifiedResults.xlsx"); // Set file path to the Gamified trial folder
-            }
+            filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "VanillaResults.xlsx"); // Set file path to the Vanilla trial folder
             if (!File.Exists(filePath)) // If the file doesnt exist already in path
             {
                 using (ExcelPackage package = new ExcelPackage())
@@ -151,8 +142,9 @@ namespace EFGHIJ
             GamifiedResults.Cells[1, 8].Value = "isReversal";
             GamifiedResults.Cells[1, 9].Value = "totalReversalNumberInclusive";
             GamifiedResults.Cells[1, 10].Value = "boundsNumber";
+            GamifiedResults.Cells[1, 11].Value = "timeTaken";
         }
-        private void recordCurrentState(bool? iIsLowerUserInput, bool? iUserCorrect, bool iReversalOccured) // Records current state and writes to file for data analysis
+        private void recordCurrentState(bool? iIsLowerUserInput, bool? iUserCorrect, bool iReversalOccured, double iTimeTaken) // Records current state and writes to file for data analysis
         {
             string IsLowerUserInputString;
             if (iIsLowerUserInput == true) // Convert the user input boolean into readable string for saving
@@ -181,6 +173,7 @@ namespace EFGHIJ
                 currentContestant.Cells[currentNewRow, 8].Value = iReversalOccured;
                 currentContestant.Cells[currentNewRow, 9].Value = reversalNumber;
                 currentContestant.Cells[currentNewRow, 10].Value = boundsNumber;
+                currentContestant.Cells[currentNewRow, 11].Value = iTimeTaken;
                 package.Save(); // Save the file to the filepath
             }
         }
