@@ -54,7 +54,7 @@ namespace EFGHIJ
             // Note: Program acknowledges reversal occurance by checking reversal number after calling this function
             return generateStimuliValues();
         }
-        public int checkReversalAndCalculateVDiff(bool IsLowerUserInput, double timeTaken)
+        public int checkReversalAndCalculateVDiff(bool IsLowerUserInput, double iTimeTaken)
         {
             bool ReversalOccured = false; // Initialised to false, unless proven otherwise later
             // Check if the user is correct
@@ -70,7 +70,7 @@ namespace EFGHIJ
                 }
             }
             // Record current state (including current temp variables) and write to file
-            recordCurrentState(IsLowerUserInput, UserCorrect, ReversalOccured, timeTaken);
+            recordCurrentState(IsLowerUserInput, UserCorrect, ReversalOccured, iTimeTaken);
             // Update last response correct state
             lastResponseWasCorrect = UserCorrect;
             // Calculate new VDiff value
